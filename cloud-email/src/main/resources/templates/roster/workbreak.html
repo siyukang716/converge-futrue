@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='工作休息规则'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" th:value="${arrangeRuleId}" id="reqarrangeRuleId">
+        <input type="hidden" th:value="${postStatus}" id="reqpostStatus">
+        <table id="workbreakList" lay-filter="workbreakTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="addworkbreak">添加</button>
+                <a href="/roster/scheduling/rules/tolist" ><button class="layui-btn layui-btn-normal layui-btn-sm">返回</button></a>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            {{# if( $("#postStatus").val() == 1){  }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            {{#  } }}
+
+        </script>
+        <div th:replace="roster/form/workbreakForm :: workbreak"></div>
+        <script th:src="@{/static/roster/workbreak.js}"></script>
+    </div></div>
+</body>
+</html>

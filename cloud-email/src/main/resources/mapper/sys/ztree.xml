@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cloud.sys.mapper.ZTreeMapper">
+
+    <!--查询角色树-->
+    <select id="getRole" resultType="java.util.Map">
+        SELECT a.id,a.role_name as name,a.pId, '' as icon,
+        IF((SELECT count(*) FROM role b WHERE b.pId = a.id  AND b.is_del = 1 ) >  0,'true','false')
+        as isParent FROM role a
+             ${ew.customSqlSegment}
+    </select>
+
+    <!--查询菜单树 不包含菜单按钮-->
+    <select id="getPermTree" resultType="java.util.Map">
+        SELECT id, name,pId, '' as icon,'true' as isParent FROM permission
+        WHERE is_del = 1 AND istype != 2
+        <if test="pId == 0 or pId == null">
+            AND pId = 0
+        </if>
+        <if test="pId != 0 and pId != null">
+            AND pId = #{pId}
+        </if>
+    </select>
+
+    <!--查询菜单树 -->
+    <select id="getAllPermTree" resultType="java.util.Map">
+        SELECT a.id, a.name,a.pId, '' as icon,
+        IF((SELECT count(*) FROM permission b WHERE b.pId = a.id  AND b.is_del = 1) >  0,'true','false')
+        as isParent FROM permission  a
+        WHERE a.is_del = 1
+        <if test="pId == 0 or pId == null">
+            AND a.pId = 0
+        </if>
+        <if test="pId != 0 and pId != null">
+            AND a.pId = #{pId}
+        </if>
+    </select>
+    <!--角色菜单授权管理  树-->
+    <select id="getRoleTermTree" resultType="java.util.Map">
+        SELECT id, name,pId, '' as icon,(SELECT COUNT(1)FROM permission po
+        LEFT JOIN role_permission rpo ON po.id = rpo.permit_id
+        WHERE po.pid = p.id AND rpo.role_id = #{roleId}
+        ) as isParent FROM
+            permission p LEFT JOIN role_permission rp ON p.id = rp.permit_id
+        WHERE is_del = 1
+        <if test="pId == 0 or pId == null">
+            AND pId = 0
+        </if>
+        <if test="pId != 0 and pId != null">
+            AND pId = #{pId}  AND role_id = #{roleId}
+        </if>
+    </select>
+</mapper>

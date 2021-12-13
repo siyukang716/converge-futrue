@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead"  title='品牌信息'></head>
+<body class="layui-layout-body">
+<h6 align="center">商品</h6>
+<div style="margin-top:70px;" id="product"></div>
+<div style="margin-top:640px;margin-left:200px;">
+    <div id="layuipage"></div>
+</div>
+
+
+<script>
+    $(function () {
+        layui.use(['jquery', 'layer', 'laypage'], function () {
+            var $ = layui.jquery,
+                layer = layui.layer,
+                laypage = layui.laypage;
+
+            var page = 1;//当前页
+            var limit = 8;//每页显示的数目
+            var resCount, resData;
+            var resPage = renderPage1();
+
+            //渲染展示商品的html页面
+            function renderProductHtml(data) {
+                var str = "";//用来存储html内容
+                if (data.length > 0) {
+                    $.each(data, function (v, o) {
+                        let picurl = '';
+                        if (o.pic['1'] != undefined)
+                            picurl = o.pic['1'][0].picUrl;
+                        else if (o.pic['0'] != undefined)
+                            picurl = o.pic['0'][0].picUrl;
+                        str += "<div style='margin:auto; margin-bottom:130px;  width:25%; height:150px; float:left; text-align:center'><div><img alt='' src='" + picurl + "' width='150px' height='150px'/></div>";
+                        str += "<div style='text-align:center'><div><label>商品名称:</label><a href='/product/info/"+o.productId+"'>" + o.productName + "</a></div>";
+                        str += "<div><label>价格:</label><span style='color:#FF3030;'>￥" + o. price+ "</span></div>";
+                        str += "<div><label>销量:</label><span style='color:#CDC9C9;'>" + "90" + "</span>";
+                        str += "<label>库存:</label><span style='color:#CDC9C9;'>" + "90" + "</span></div>";
+                        str += "<div style='display:none;'><label>商品ID:</label><span>" + o.productId + "</span></div></div></div>";
+
+                    });
+                    $("#product").html(str);
+                }
+
+            }
+
+
+            //同步加载商品数据
+            function renderProduct(page, limit) {
+                $.ajax({
+                    async: false,
+                    url: '/product/info/getProductPage',
+                    data: {"page": page, "limit": limit},
+                    dataType: 'json',
+                    success: function (result) {
+                        console.info(result);
+                        resCount = result.totals;
+                        resData = result.list;
+                        renderProductHtml(resData);
+                    }
+                });
+            }
+
+
+            //分页的完整功能
+            function renderPage1() {
+                renderProduct(page, limit);
+                laypage.render({
+                    elem: 'layuipage'
+                    , count: resCount
+                    , limit: limit
+                    , limits: [limit]
+                    , curr: page
+                    , theme: '#FFB800'
+                    , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                    , jump: function (obj, first) {
+                        console.info(obj);
+                        page = obj.curr;
+                        if (!first) {
+                            renderProduct(page, limit);
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.SysCommonDictKvMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.SysCommonDictKvEntity">
+        <id column="dict_child_id" property="dictChildId"/>
+        <result column="dict_id" property="dictId"/>
+        <result column="dict_tag" property="dictTag"/>
+        <result column="dict_sort" property="dictSort"/>
+        <result column="dict_memo" property="dictMemo"/>
+        <result column="dict_status" property="dictStatus"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        dict_child_id
+        ,dict_id,dict_tag,dict_sort,dict_memo,dict_status,insert_time,update_time
+    </sql>
+
+</mapper>

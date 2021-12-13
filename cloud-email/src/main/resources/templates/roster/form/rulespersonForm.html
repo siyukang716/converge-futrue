@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="rulesperson">
+    <div id="rulespersonDiv" class="layer_self_wrap" style="display:none;">
+        <form id="rulespersonForm" class="layui-form" lay-filter="rulespersonForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="rulesPersonId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">排班规则id</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="arrangeRuleId" name="arrangeRuleId" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">人员id</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="userId" name="userId" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">新增时间</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="insertTime" name="insertTime" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">新增操作人</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="insertUid" name="insertUid" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">修改操作人</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="updateUid" name="updateUid" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">修改时间</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="updateTime" name="updateTime" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="rulespersonSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

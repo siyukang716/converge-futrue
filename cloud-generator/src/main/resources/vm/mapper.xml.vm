@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${packageName}.mapper.${mapperName}">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="${packageName}.entity.${entityName}Entity">
+            #foreach($field in ${columns})
+                #if($field.isPk.equals("1"))##生成主键排在第一位
+                    <id column="${field.columnName}" property="${field.javaField}" />
+                #end
+            #end
+            #foreach($field in ${columns})
+                #if($field.isPk.equals("0"))##生成普通字段
+                    <result column="${field.columnName}" property="${field.javaField}" />
+                #end
+            #end
+        </resultMap>
+
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                ${fieldNames}
+        </sql>
+
+</mapper>

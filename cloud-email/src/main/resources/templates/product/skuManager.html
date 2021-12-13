@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:title="sku"></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="skuManagerList" lay-filter="skuManagerTable"></table>
+
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="addSkuManager()">1添加</button>
+            </div>
+        </script>
+
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs" href="/prod/sku/attr/val/tolist/{{d.makId}}">选项值维护</a>
+        </script>
+
+        <script th:src="@{/static/js/product/skuManager.js}"></script>
+    </div>
+</div>
+</body>
+<div th:replace="product/productform :: skuManager"></div>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="shippinginfo">
+    <div id="shippinginfoDiv" class="layer_self_wrap" style="display:none;">
+        <!-- 用户信息 -->
+        <form id="shippinginfoForm" class="layui-form layui-form-pane" lay-filter="shippinginfoForm" method="post"
+              action="" style="margin-top: 20px;">
+            <input name="shipId" type="hidden"><!--自增主键ID-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">物流公司名称</label>
+                <div class="layui-input-inline">
+                    <input id="shipName" name="shipName" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+                <div class="layui-form-mid layui-word-aux">xxx物流</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">物流公司联系人</label>
+                <div class="layui-input-inline">
+                    <input id="shipContact" name="shipContact" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+                <div class="layui-form-mid layui-word-aux">张三</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">物流公司联系电话</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" name="telephone" lay-verify="required|phone" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">18656543432</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">配送价格</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="price" name="price" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">1000</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="shippinginfoSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!--warehouseinfo-->
+
+<div th:fragment="warehouseinfo">
+    <div id="warehouseinfoDiv" class="layer_self_wrap" style="display:none;">
+        <!-- 用户信息 -->
+        <form id="warehouseinfoForm" class="layui-form layui-form-pane" lay-filter="warehouseinfoForm" method="post"
+              action="" style="margin-top: 20px;">
+            <input name="warehouseId" type="hidden"><!--自增主键ID-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">仓库编码</label>
+                <div class="layui-input-inline">
+                    <input id="warehouseSn" name="warehouseSn" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+                <div class="layui-form-mid layui-word-aux">xxxxxx</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">仓库名称</label>
+                <div class="layui-input-inline">
+                    <input id="warehoustName" name="warehoustName" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+                <div class="layui-form-mid layui-word-aux">xxx仓库名称</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">仓库电话</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" name="warehousePhone" lay-verify="required|phone"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">18656543432</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">仓库联系人</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="contact" name="contact" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">张三</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">证件类型</label>
+                <div class="layui-input-inline">
+                    <select name="province" lay-verify="required">
+                        <option value="">请选择省</option>
+                        <option value="1" selected="">浙江省</option>
+                        <option value="2">江西省</option>
+                        <option value="3">福建省</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="city" lay-verify="required">
+                        <option value="">请选择市</option>
+                        <option value="4" selected>杭州</option>
+                        <option value="5">宁波</option>
+                        <option value="6">温州</option>
+                        <option value="7">台州</option>
+                        <option value="8">绍兴</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="distrct" lay-verify="required">
+                        <option value="">请选择县/区</option>
+                        <option value="9" selected>西湖区</option>
+                        <option value="11">余杭区</option>
+                        <option value="10">临安市</option>
+                    </select>
+                </div>
+                <div class="layui-form-mid layui-word-aux">此处只是演示联动排版，并未做联动交互</div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">仓库地址</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="address" name="address" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">xxxx市</div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">仓库状态</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="warehouseStatus" value="0" title="禁止">
+                    <input type="radio" name="warehouseStatus" value="1" title="启用" checked>
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="warehouseinfoSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+
+<div th:fragment="warehouseProduct">
+    <div id="warehouseProductDiv" class="layer_self_wrap" style="display:none;">
+        <form id="warehouseProductForm" class="layui-form layui-form-pane" lay-filter="warehouseProductForm" method="post"
+              action="" style="margin-top: 20px;">
+            <input name="wpId" type="hidden"><!--自增主键ID-->
+            <input name="productId" type="hidden"><!--自增主键ID-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">仓库</label>
+                <div class="layui-input-inline">
+                    <select  id="wid" name="wid" lay-verify="required" lay-search="" placeholder="">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">当前商品数量</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="currentCnt" name="currentCnt" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">当前占用数据</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="lockCnt" name="lockCnt" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">在途数据</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="inTransitCnt" name="inTransitCnt" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">移动加权成本</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="averageCost" name="averageCost" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="warehouseProductSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

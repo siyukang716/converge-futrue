@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='排班规则'></head>
+<body>
+<div th:replace="layout :: ztree"></div>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="schedulingrulesList" lay-filter="schedulingrulesTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="addschedulingrules">添加</button>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            {{# if( d.postStatus == 1){  }}
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="publish">发布</a>
+            {{#  } else{  }}
+                <a class="layui-btn layui-btn-xs" lay-event="editRoster">修改排班</a>
+                <a class="layui-btn layui-btn-xs" lay-event="selectManyUser">设置人员</a>
+                <a class="layui-btn layui-btn-xs" href="/roster/rules/person/tolist/{{d.arrangeRuleId}}">人员管理</a>
+            {{#  }   }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" href="/roster/work/break/tolist/{{d.arrangeRuleId}}/{{d.postStatus}}">休息管理</a>
+
+        </script>
+        <div th:replace="roster/form/schedulingrulesForm :: schedulingrules"></div>
+        <div th:replace="common/dept_user :: commonDeptTreeLinkUserList"></div>
+        <script th:src="@{/static/roster/schedulingrules.js}"></script>
+    </div></div>
+</body>
+</html>

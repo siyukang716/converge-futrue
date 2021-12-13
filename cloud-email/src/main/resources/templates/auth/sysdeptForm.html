@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sysdept">
+    <div id="sysdeptDiv" class="layer_self_wrap" style="display:none;">
+        <form id="sysdeptForm" class="layui-form layui-form-pane" lay-filter="sysdeptForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input id="deptId" name="deptId" type="hidden"><!--自增主键ID-->
+            <input id="parentDeptId" name="parentDeptId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门名称</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="deptName" name="deptName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="tel" name="tel" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="sysdeptSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

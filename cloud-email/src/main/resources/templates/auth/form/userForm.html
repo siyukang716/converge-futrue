@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="userImport">
+    <div id="userImportDiv" class="layer_self_wrap" style="display:none;">
+        <form id="userImportForm" class="layui-form" lay-filter="userImportForm" method="post"
+              action="" style="margin-top: 20px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">模板</label>
+                <div class="layui-input-block">
+                    <a href="/user/importTemplate" class="layui-btn layui-btn-normal" >下载导入模板</a>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">导入</label>
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn layui-btn-normal" id="importUserDataFile">选择文件</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>

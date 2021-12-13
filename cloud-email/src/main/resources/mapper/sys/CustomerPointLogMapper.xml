@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.CustomerPointLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.CustomerPointLogEntity">
+        <id column="point_id" property="pointId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="source" property="source"/>
+        <result column="refer_number" property="referNumber"/>
+        <result column="change_point" property="changePoint"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        point_id
+        , customer_id, source, refer_number, change_point, create_time
+    </sql>
+
+</mapper>

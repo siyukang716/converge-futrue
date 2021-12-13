@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:with="title='商品图片'"></head>
+<body class="layui-layout-body">
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" th:value="${productId}" id="reqproductId">
+         <table id="picinfoList" lay-filter="picinfoTable"></table>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="addPicinfo()">添加</button>
+            <a href="javascript:history.back(-1)" ><button class="layui-btn layui-btn-normal layui-btn-sm">返回</button></a>
+
+        </div>
+    </script>
+
+    <script type="text/html" id="picUrl">
+        <img src="{{d.picUrl}}" alt="点击查看大图" style="max-width: 396px;max-height: 200px;" ><!--lay-submit lay-filter="lookPic"-->
+    </script>
+    <script type="text/html" id="optBar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <div th:replace="product/productform :: picinfo"></div>
+    <script th:src="@{/static/js/product/productpicinfo.js}"></script>
+    </div></div>
+</body>
+</html>

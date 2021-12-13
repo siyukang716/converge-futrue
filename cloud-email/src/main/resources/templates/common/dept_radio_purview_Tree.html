@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="dept_radio_purview_TreeControl">
+    <script type="text/javascript" th:inline="none">
+        var dept_radio_purview_ztree_setting = {
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: 'dept_id',
+                    pIdKey: 'parent_dept_id',
+                    rootPId: -1
+                },
+                key: {
+                    name: 'dept_name'
+                }
+            }, view: {
+                showLine: false,
+                showIcon: true,
+            }, async: {
+                enable: true,
+                type: "get",
+                dataType: 'json',
+                url: '/system/dept/tree',
+                autoParam: ['dept_id', 'parent_dept_id']
+            }, callback: {
+                //onClick: dept_radio_TreeOnClick
+            }, check: {
+                enable: true,
+                chkStyle: "radio",
+                radioType: "all"
+            }
+        };
+
+
+        function load_dept_radio_purview_Tree(isSelf) {
+            getData("/system/dept/getpurviewtree", {isSelf:isSelf}, load_dept_radio_purview_TreeCall)
+        }
+
+        function load_dept_radio_purview_TreeCall(data) {
+            $.fn.zTree.init($("#dept_radio_purview_Tree"), dept_radio_purview_ztree_setting, data);
+        }
+
+        function dept_radio_TreeOnClick(event, treeId, treeNode, clickFlag) {
+            //debugger;
+            dept_radio_Tree_OnClickOnClickCall(event, treeId, treeNode, clickFlag);
+        }
+
+        function dept_radio_purview_Tree_submit() {
+            var zTree = $.fn.zTree.getZTreeObj("dept_radio_purview_Tree");
+            var nodes = zTree.getCheckedNodes(true);
+            if (nodes.length == 1) {
+                dept_radio_purview_Tree_submit_CallBack(nodes[0]);
+            } else {
+                layer.msg("请选择节点");
+            }
+        }
+    </script>
+
+
+    <div id="common_dept_purview_radio_TreeDiv" class="layui-row" style="display:none;">
+        <button class="layui-btn" onclick="dept_radio_purview_Tree_submit()">确定</button>
+        <div class="layui-row">
+            <div class="layui-col-sm5">
+                <div id="dept_radio_purview_Tree" class="ztree"
+                     style="width: 100%; height: 500px; overflow: scroll;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

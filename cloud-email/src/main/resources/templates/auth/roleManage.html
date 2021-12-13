@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead" th:with="title='角色管理'"></head>
+<body class="layui-layout-body">
+<div class="layuimini-container">
+    <div class="layui-row">
+        <div class="layui-col-sm3">
+            <div id="roleZTree" class="ztree"
+                 style="width: 100%; height: 500px; overflow: scroll;"></div>
+        </div>
+        <div class="layui-col-sm7 layui-col-md-offset1" style="margin-top: 10px">
+            <form id="roleForm" class="layui-form" lay-filter="roleForm" action="=" method="post">
+                <input type="hidden" id="pid" name="pid"/>
+                <input type="hidden" id="id" name="id"/>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">上级角色：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="proleName" id="proleName" readonly
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">角色名称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="roleName" lay-verify="required" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">角色编号：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="code" lay-verify="required" autocomplete="off"
+                                   class="layui-input"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色描述：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="descpt" lay-verify="" placeholder="" autocomplete="off"
+                               class="layui-input"/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" type="button" onclick="insertSubmit()">新增</button>
+                        <button class="layui-btn" lay-submit="" lay-filter="saveSubmit">保存</button>
+                        <button class="layui-btn" lay-submit="" lay-filter="deleteSubmit">删除</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <link rel="stylesheet" th:href="@{/static/js/ztree/css/zTreeStyle/zTreeStyle.css}"></link>
+    <script type="text/javascript" src="/static/js/ztree/jquery.ztree.all.js"></script>
+    <script src="/static/js/auth/roleManage.js"></script>
+
+</div>
+</body>
+</html>

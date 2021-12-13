@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="inventoryRecord">
+    <div id="inventoryRecordDiv" class="layer_self_wrap" style="display:none;">
+        <form id="inventoryRecordForm" class="layui-form layui-form-pane" lay-filter="inventoryRecordForm" method="post"
+              action="" style="margin-top: 20px;">
+            <input name="wpId" type="hidden">
+            <input name="businessType" type="hidden">
+            <input name="inventoryOperations" type="hidden">
+            <input name="amount" type="hidden" id="amount">
+
+            数量: <div id="slideTest8" class="demo-slider" style="width: 400px;margin: 20px;"></div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="inventoryRecordSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+</html>

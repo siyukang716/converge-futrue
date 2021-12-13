@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.product.mapper.ProductInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.product.entity.ProductInfoEntity">
+        <id column="product_id" property="productId"/>
+        <result column="product_core" property="productCore"/>
+        <result column="product_name" property="productName"/>
+        <result column="bar_code" property="barCode"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="one_category_id" property="oneCategoryId"/>
+        <result column="two_category_id" property="twoCategoryId"/>
+        <result column="three_category_id" property="threeCategoryId"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="price" property="price"/>
+        <result column="average_cost" property="averageCost"/>
+        <result column="publish_status" property="publishStatus"/>
+        <result column="audit_status" property="auditStatus"/>
+        <result column="weight" property="weight"/>
+        <result column="length" property="length"/>
+        <result column="height" property="height"/>
+        <result column="width" property="width"/>
+        <result column="color_type" property="colorType"/>
+        <result column="production_date" property="productionDate"/>
+        <result column="shelf_life" property="shelfLife"/>
+        <result column="descript" property="descript"/>
+        <result column="indate" property="indate"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        product_id
+        , product_core, product_name, bar_code, brand_id, one_category_id, two_category_id, three_category_id, supplier_id, price, average_cost, publish_status, audit_status, weight, length, height, width, color_type, production_date, shelf_life, descript, indate, modified_time
+    </sql>
+    <select id="selectPagePartner" resultType="com.cloud.product.vo.ProductInfoVo">
+        SELECT
+            pi.product_id,
+            pi.product_core,
+            pi.product_name,
+            pi.bar_code,
+            bi.brand_name, pi.brand_id,
+            pi.one_category_id,
+            pi.two_category_id,
+            pi.three_category_id,
+            pi.supplier_id,
+            pi.price,
+            pi.average_cost,
+            pi.publish_status,
+            pi.audit_status,
+            pi.weight,
+            pi.length,
+            pi.height,
+            pi.width,
+            pi.color_type,
+            pi.production_date,
+            pi.shelf_life,
+            pi.descript,
+            pi.indate,
+            pi.modified_time,
+            si.supplier_name
+        FROM
+            product_info pi
+                LEFT JOIN brand_info bi ON pi.brand_id = bi.brand_id
+                LEFT JOIN supplier_info si ON pi.supplier_id = si.supplier_id
+
+            ${ew.customSqlSegment}
+    </select>
+    <select id="getsales" resultType="java.util.Map">
+        SELECT ps.sku_depict,ps.product_price,pi.product_name,om.order_money,om.payment_money,om.create_time,user.username
+        FROM order_master  om LEFT JOIN order_detail od ON om.order_id = od.order_id
+                              LEFT JOIN product_specs ps ON od.product_id = ps.specs_id
+                              LEFT JOIN product_info pi ON pi.product_id = ps.product_id
+                              LEFT JOIN `user` ON `user`.id = om.customer_id
+            ${ew.customSqlSegment}
+    </select>
+
+</mapper>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='部门用户关联'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="sysuserdeptList" lay-filter="sysuserdeptTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="addsysuserdept">添加</button>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+        <div th:replace="auth/sysuserdeptForm :: sysuserdept"></div>
+        <script th:src="@{/static/js/auth/sysuserdept.js}"></script>
+    </div>
+</div>
+</body>
+</html>

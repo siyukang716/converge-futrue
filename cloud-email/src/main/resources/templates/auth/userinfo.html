@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<style >
+    .layui-form-label {
+        width: 300px;
+    }
+</style>
+<!--customer_inf_id	自增主键ID
+customer_id	customer_login表的自增ID
+customer_name	用户真实姓名
+identity_card_type	证件类型：1 身份证，2 军官证，3 护照
+identity_card_no	证件号码
+mobile_phone	手机号
+customer_email	邮箱
+gender	性别
+user_point	用户积分
+register_time	注册时间
+birthday	会员生日
+customer_level	会员级别：1 普通会员，2 青铜，3白银，4黄金，5钻石
+user_money	用户余额
+modified_time	最后修改时间-->
+<div th:fragment="userinfo">
+    <div id="userinfoDiv" class="layer_self_wrap" style="display:none;">
+        <!-- 用户信息 -->
+        <form id="userinfoForm" class="layui-form" lay-filter="userinfoForm" method="post" action="" style="margin-top: 20px;">
+            <input name="customerInfId" type="hidden" ><!--自增主键ID-->
+            <input name="customerId" type="hidden"><!--customer_login表的自增ID-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <input id="customerName" name="customerName" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">证件类型</label>
+                <div class="layui-input-block">
+                    <select name="identityCardType" >
+                        <option value=""></option>
+                        <option value="1">身份证</option>
+                        <option value="2">军官证</option>
+                        <option value="3">护照</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">证件号码</label>
+                <div class="layui-input-inline">
+                    <input placeholder="150221200001055015" type="text" name="identityCardNo" lay-verify="required|identity"  autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux" >150221200001055015</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-inline">
+                    <input placeholder="18712878767" type="tel" name="mobilePhone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">18712878767</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                    <input placeholder="wwww989@qq.com" type="text" name="customerEmail" lay-verify="required|email" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">wwww989@qq.com</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="gender" value="男" title="男">
+                    <input type="radio" name="gender" value="女" title="女" checked>
+                </div>
+            </div>
+           <div class="layui-form-item">
+                <label class="layui-form-label">职务/岗位</label>
+                <div class="layui-input-block">
+                    <input id="position"  name="position" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+            </div>
+
+
+            <div class="layui-inline">
+                <label class="layui-form-label">入职时间:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="entryTime" id="entryTime"  placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">生日</label>
+                <div class="layui-input-block">
+                    <input type="text" name="birthday" id="birthday"  placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄</label>
+                <div class="layui-input-block">
+                    <input type="text" name="age" id="age" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="userinfoSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<!--用户地址维护-->
+<div th:fragment="customerAddr">
+
+    <div id="customerAddrDiv" class="layer_self_wrap" style="display:none;">
+        <!-- 用户信息 -->
+        <form id="customerAddrForm" class="layui-form layui-form-pane" lay-filter="customerAddrForm" method="post" action="" style="margin-top: 20px;">
+            <input name="customerAddrId" type="hidden" ><!--自增主键ID-->
+            <input name="customerId" type="hidden"><!--customer_login表的自增ID-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮编</label>
+                <div class="layui-input-inline">
+                    <input id="zip" name="zip" autocomplete="off" class="layui-input" type="text" lay-verify="required|number"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">证件类型</label>
+                <div class="layui-input-inline">
+                    <select name="province" lay-verify="required">
+                        <option value="">请选择省</option>
+                        <option value="1" selected="">浙江省</option>
+                        <option value="2">江西省</option>
+                        <option value="3">福建省</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="city" lay-verify="required">
+                        <option value="">请选择市</option>
+                        <option value="4" selected>杭州</option>
+                        <option value="5">宁波</option>
+                        <option value="6">温州</option>
+                        <option value="7">台州</option>
+                        <option value="8">绍兴</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="district" lay-verify="required">
+                        <option value="">请选择县/区</option>
+                        <option value="9" selected>西湖区</option>
+                        <option value="11">余杭区</option>
+                        <option value="10">临安市</option>
+                    </select>
+                </div>
+                <div class="layui-form-mid layui-word-aux">此处只是演示联动排版，并未做联动交互</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">具体的地址门牌号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="address" name="address" lay-verify="required"  autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux" >150221200001055015</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否默认</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="isDefault" value="1" title="是">
+                    <input type="radio" name="isDefault" value="0" title="否" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="customerAddrSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--用户级别信息-->
+<div th:fragment="levelinf">
+
+    <div id="levelinfDiv" class="layer_self_wrap" style="display:none;">
+        <!-- 用户信息 -->
+        <form id="levelinfForm" class="layui-form layui-form-pane" lay-filter="levelinfForm" method="post" action="" style="margin-top: 20px;">
+            <input name="customerLevel" type="hidden" ><!--自增主键ID-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">会员级别名称</label>
+                <div class="layui-input-inline">
+                    <input id="levelName" name="levelName" autocomplete="off" class="layui-input" type="text" lay-verify="required"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">该级别最低积分</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="minPoint" name="minPoint" lay-verify="required"  autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux" ></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">该级别最高积分</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="maxPoint" name="maxPoint" lay-verify="required"  autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux" ></div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="levelinfSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<div th:fragment="sys_logoinfo_config">
+
+    <div id="sys_logoinfo_configDiv" class="layer_self_wrap" style="display:none;">
+        <!-- 用户信息 -->
+        <form id="sys_logoinfo_configForm" class="layui-form layui-form-pane" lay-filter="sys_logoinfo_configForm" method="post" action="" style="margin-top: 20px;">
+            <input name="sysFonfigId" type="hidden" ><!--自增主键ID-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">系统名称</label>
+                <div class="layui-input-inline">
+                    <input id="title" name="title" autocomplete="off" class="layui-input" type="text" lay-verify="required"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">点击图标跳转</label>
+                <div class="layui-input-inline">
+                    <input id="href" name="href" autocomplete="off" class="layui-input" type="text"
+                           lay-verify="required"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">图片URL</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="hidden" name="image" id="image" autocomplete="off"
+                           class="layui-input">
+                    <div class="layui-upload-drag" id="test10">
+                        <i class="layui-icon"></i>
+                        <p>点击上传，或将文件拖拽到此处</p>
+                        <div class="layui-hide" id="uploadDemoView">
+                            <hr>
+                            <img src="" alt="上传成功后渲染" style="max-width: 396px;max-height: 200px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="sys_logoinfo_configSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

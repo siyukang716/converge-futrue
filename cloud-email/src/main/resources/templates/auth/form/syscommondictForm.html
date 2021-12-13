@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="syscommondict">
+    <div id="syscommondictDiv" class="layer_self_wrap" style="display:none;">
+        <form id="syscommondictForm" class="layui-form layui-form-pane" lay-filter="syscommondictForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="dictId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">字典名称</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="dictName" name="dictName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">字典类型</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="dictType" name="dictType" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="dictMome" name="dictMome" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="syscommondictSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

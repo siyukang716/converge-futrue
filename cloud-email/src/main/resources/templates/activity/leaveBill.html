@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:with="title='用户管理'"></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <button class="layui-btn layui-btn-normal" onclick="addleavebill()">新增请假信息</button>
+        <table id="leaveBillList" lay-filter="leaveBillTable"></table>
+
+
+        <script type="text/html" id="optBar">
+            {{#  if(d.state == 0){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="startleaveBillProcess">请假</a>
+            {{#  } else { }}
+            一请假
+            {{#  } }}
+            <!--{{#  if(d.assignee != null && d.assignee != ''){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="completeTask">办理</a>
+            {{#  } else { }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="claimTask">领取任务</a>
+            {{#  } }}
+            <a class="layui-btn layui-btn-xs" lay-event="lookProcessPhoto">查看流程图</a>-->
+        </script>
+
+
+    </div>
+
+
+    <!--请假信息框-->
+    <div id="setleaveBill" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="actleaveBill" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+            <input id="id" type="hidden" name="id"/>
+            <input id="userid" type="hidden" name="userid"/>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">请假天数</label>
+                <div class="layui-input-inline">
+                    <input id="days" name="days" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">请假内容</label>
+                <div class="layui-input-inline">
+                    <input id="content" name="content" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline">
+                    <input id="remark" name="remark" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" lay-submit="" lay-filter="leaveBillSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!--底部-->
+    <script th:src="@{/static/js/activity/leaveBill.js}" src="/static/js/activity/leaveBill.js"></script>
+</div>
+</body>
+</html>

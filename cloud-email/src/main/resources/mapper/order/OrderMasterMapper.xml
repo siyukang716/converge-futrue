@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.order.mapper.OrderMasterMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.order.entity.OrderMasterEntity">
+        <id column="order_id" property="orderId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="shipping_user" property="shippingUser"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="address" property="address"/>
+        <result column="payment_method" property="paymentMethod"/>
+        <result column="order_money" property="orderMoney"/>
+        <result column="district_money" property="districtMoney"/>
+        <result column="shipping_money" property="shippingMoney"/>
+        <result column="payment_money" property="paymentMoney"/>
+        <result column="shipping_comp_name" property="shippingCompName"/>
+        <result column="shipping_sn" property="shippingSn"/>
+        <result column="create_time" property="createTime"/>
+        <result column="shipping_time" property="shippingTime"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="receive_time" property="receiveTime"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="order_point" property="orderPoint"/>
+        <result column="invoice_time" property="invoiceTime"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_id
+        , order_sn, customer_id, shipping_user, province, city, district, address, payment_method, order_money, district_money, shipping_money, payment_money, shipping_comp_name, shipping_sn, create_time, shipping_time, pay_time, receive_time, order_status, order_point, invoice_time, modified_time
+    </sql>
+
+</mapper>

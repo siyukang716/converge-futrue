@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <script src="./oxWebSocket.js" defer></script>
+</head>
+
+<body>
+    <script>
+        var jSW = {};
+
+        var _moduleMgr = {};
+        (function (mMgr) {
+            jsw_ocx = document.createElement('object');
+            jsw_ocx.id = 'jsw_ocx';
+            jsw_ocx.classid = "clsid:51DF1D91-DA4E-47DA-A5BE-84A96ADD2425";
+            jsw_ocx.width = 1;
+            jsw_ocx.height = 1;
+            jsw_ocx.style.position = "absolute";
+            jsw_ocx.style.top = "0px";
+            jsw_ocx.style.left = "0px";
+            document.body.appendChild(jsw_ocx);
+
+            var bOcxWs = true;
+            var bLoaded = false;
+            var bLoading = false;
+            var ocxWebSocketClass = null;
+            var _ocxHandle = jsw_ocx;
+            var _ocxWsModuleTag = null;
+
+            mMgr.bUseOcx = function () {
+                return bOcxWs && jSWOptions.CheckOcx();
+            }
+
+            mMgr.loadWebSocket = function (cb, session, tag) {
+                if (bOcxWs) {
+                    if (!bLoaded && !bLoading) {
+                        bLoading = true;
+                        var utag = {
+                            cb: cb,
+                            tag: {
+                                _sess: session,
+                                tag: tag
+                            }
+                        };
+                        ansyloadJs(swfobjectDir, function (userTag) {
+                            userTag.cb(userTag.tag._sess, userTag.tag.tag, ocxWebSocketClass);
+                            bLoaded = true;
+                        }, utag);
+                    } else if (bLoaded) {
+                        cb(session, tag);
+                    }
+                } else {
+                    cb(session, tag);
+                }
+            }
+
+            mMgr.oWsOpen = function (ws) {
+                ws.open();
+            }
+
+            mMgr.regOcxWebSocket = function (cWS, tag) {
+                ocxWebSocketClass = cWS;
+                ocxWebSocketClass.SetOcxHandle(_ocxHandle);
+                _ocxWsModuleTag = tag;
+                var ws = new ocxWebSocketClass("ws://127.0.0.1:28866");
+                ws.onopen = function () {
+                    var szArray = new Array();
+                    for(var i =0; i < 100; i++){
+                        szArray.push(i);
+                    }
+                    
+                    ws.send(new Uint8Array(szArray));
+                }
+
+                ws.onclose = function(){
+
+                }
+
+                ws.onerror = function(){
+
+                }
+
+                ws.open();
+            }
+
+            mMgr.GetOcxWsTag = function () {
+                return _ocxWsModuleTag;
+            }
+
+            mMgr.RegOcxHandle = function (ocxHanlde) {
+                _ocxHandle = jsw_ocx;
+            }
+        })(_moduleMgr);
+
+        jSW._mMgr = _moduleMgr;
+    </script>
+</body>
+
+</html>

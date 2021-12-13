@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead" th:with="title='权限管理'"></head>
+<body>
+<div class="layuimini-container">
+
+        <div class="layui-col-sm3">
+            <div id="permZTree" class="ztree"
+                 style="width: 100%; height: 500px; overflow: scroll;"></div>
+        </div>
+        <div class="layui-col-sm7 layui-col-md-offset1" style="margin-top: 10px">
+            <form id="permForm" class="layui-form layui-form-pane" method="post" action="" lay-filter="roleForm"
+                  style="margin-top: 20px;">
+                <input id="type" type="hidden" name="type"/>
+                <input id="pid" type="hidden" name="pid"/>
+                <input id="id" type="hidden" name="id"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">菜单名称</label>
+                    <div class="layui-input-inline">
+                        <input name="name" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>
+                    </div>
+                </div>
+                <div class="layui-form-item" pane="">
+                    <label class="layui-form-label">分类</label>
+                    <div class="layui-input-block">
+                        <input name="istype" value="0" title="菜单" checked="" type="radio"/>
+                        <input name="istype" value="1" title="功能" type="radio"/>
+                        <input name="istype" value="2" title="按钮" type="radio"/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">菜单路径</label>
+                    <div class="layui-input-inline">
+                        <input name="page" autocomplete="off" class="layui-input" type="text"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">权限code</label>
+                    <div class="layui-input-inline">
+                        <input name="code" lay-verify="required" autocomplete="off" class="layui-input" type="text"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">权限优先级</label>
+                    <div class="layui-input-inline">
+                        <input name="zindex" autocomplete="off" class="layui-input" type="text"
+                               onkeyup="this.value=this.value.replace(/\D/g,'')" lay-verify="required"
+                               onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写大于0的整数数字</div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block">
+                        <textarea name="descpt" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="margin-left: 10px;">
+                        <button class="layui-btn" type="button" onclick="insertSubmit()">新增</button>
+                        <button class="layui-btn" lay-submit="" lay-filter="saveSubmit">保存</button>
+                        <button class="layui-btn" lay-submit="" lay-filter="deleteSubmit">删除</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <link rel="stylesheet" th:href="@{/static/js/ztree/css/zTreeStyle/zTreeStyle.css}"></link>
+        <script type="text/javascript" src="/static/js/ztree/jquery.ztree.all.js"></script>
+        <script src="/static/js/auth/permList.js"></script>
+</div>
+</body>
+</html>

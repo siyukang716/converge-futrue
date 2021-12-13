@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='部门'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="sysdeptList" lay-filter="sysdeptTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="addsysdept">添加</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            {{#  if(d.deptId != d.companyId){ }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            {{#  }  }}
+
+        </script>
+        <div th:replace="auth/sysdeptForm :: sysdept"></div>
+        <script th:src="@{/static/js/auth/sysdept.js}"></script>
+    </div></div>
+</body>
+</html>

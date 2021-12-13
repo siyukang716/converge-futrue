@@ -1,0 +1,81 @@
+package ${package.Entity};
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+/**
+ *
+ * @ClassName: ${entity}
+ * @Description: ${table.comment}
+ * @author ${author}
+ * @date ${date}
+ */
+
+
+@Data
+@EqualsAndHashCode(callSuper =true)
+@TableName("${table.name}")
+@ApiModel("${table.comment}")
+public class ${entity} extends Model<${entity}> implements Serializable  {
+
+    private static final long serialVersionUID = 1L;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+    #end
+
+    #if("$!field.comment" !="")
+    /**
+     * ${field.comment}
+     */
+    #end
+    #if(${field.keyFlag})
+        ## 主键
+        #if(${field.keyIdentityFlag})
+        @TableId(value="${field.name}", type= IdType.AUTO)
+        #elseif(${field.convert})
+        @TableId("${field.name}")
+        #else
+        @TableId("${field.name}")
+        #end
+        ## 普通字段
+    #elseif(${field.fill})
+        ## -----   存在字段填充设置   -----
+        #if(${field.convert})
+        @TableField(value ="${field.name}", fill = FieldFill.${field.fill})
+        #else
+        @TableField(value ="${field.name}",fill = FieldFill.${field.fill})
+        #end
+    #elseif(${field.convert})
+    @TableField("${field.name}")
+    #else
+    @TableField("${field.name}")
+    #end
+    ## 乐观锁注解
+    #if(${versionFieldName}==${field.name})
+    @Version
+    #end
+    ## 逻辑删除注解
+    #if(${logicDeleteFieldName}==${field.name})
+    @TableLogic
+    #end
+@ApiModelProperty(value = "${field.comment}")
+private ${field.propertyType} ${field.propertyName};
+
+#end
+
+
+## ----------  END 字段循环遍历  ----------
+}

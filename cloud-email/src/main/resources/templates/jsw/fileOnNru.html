@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:include="layout :: htmlhead" title='承包商问卷题'></head>
+<script type="text/javascript" th:src="@{/static/jsw/jsw.js}"></script>
+<body>
+<input type="button" value="登录" onclick="jswLogin()"/>
+<input class="btn btn-success" onclick="SearchRecordOnPu()"
+       type="button" value="检索设备上文件">
+<div id="msg">未登录</div>
+
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="fileOnNruList" lay-filter="fileOnNruTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="addcontractorquestionnaire">添加</button>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" href="{{d.szFile}}">下载</a>
+        </script>
+<!--        <div th:replace=" :: contractorquestionnaire"></div>-->
+        <script th:src="@{/static/jsw/fileOnNru.js}"></script>
+    </div>
+</div>
+
+</body>
+</html>

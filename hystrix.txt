@@ -1,0 +1,50 @@
+增加注解  主启动类
+@EnableCircuitBreaker
+
+
+
+
+/**
+     *  服务降级
+     */
+    @HystrixCommand(fallbackMethod = "paymentInfo_TimeOutHandler", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds" ,value = "3000")//限定超时时间
+    })
+
+ /**
+     *   ----- 服务熔断
+     *
+     */
+    @HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback",commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled",value="true"),//是否开启断路器
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"),//请求次数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"),//时间窗口期
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60")//失败率达到多少后跳闸
+    })
+
+
+
+    /**
+     * 此配置是为了服务监控而配置，与服务容错本身无关，springcloud 升级后 的坑
+     * ServletRegistrationBean 因为 springboot 的默认路径不是 、hystrix.stream
+     * 只要在自己的项目里配置上下面的servlet就可以了
+     * @return
+     */
+    @Bean
+    public ServletRegistrationBean getServlet(){
+        HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+        registrationBean.setLoadOnStartup(1);
+        registrationBean.addUrlMappings("/hystrix.stream");
+        registrationBean.setName("HystrixMetricsStreamServlet");
+        return registrationBean;
+    }
+
+http://localhost:9001/hystrix
+
+
+
+#用于服务降级   在注解@FeignClient中添加fallbackFactory
+feign:
+  hystrix:
+    enabled: true

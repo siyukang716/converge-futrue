@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='工作流'></head>
+
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <table id="actModelList" lay-filter="actModelTable"></table>
+
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="down">下载bpmn</a>
+            <a class="layui-btn layui-btn-xs" lay-event="deploy">部署</a>
+            <!--<a class="layui-btn layui-btn-xs" lay-event="startProcess">启动测试</a>-->
+        </script>
+    </div>
+
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-normal" onclick="addmodel()">新增流程</button>
+        </div>
+    </script>
+    <div th:replace="activity/actForm :: #setactModel"></div>
+    <script th:src="@{/static/js/activity/actModel.js}"></script>
+</div>
+</body>
+</html>

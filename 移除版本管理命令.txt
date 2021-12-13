@@ -1,0 +1,14 @@
+git rm -r --cached ./api-commons/target/
+git rm -r --cached ./cloud-config3344/target/
+git rm -r --cached ./cloud-consumer80/target/
+git rm -r --cached ./cloud-email/target/
+git rm -r --cached ./converge-futrue-server7001/target/
+git rm -r --cached ./cloud-gateway9527/target/
+git rm -r --cached ./cloud-hystrix-dashboard9001/target/
+git rm -r --cached ./cloud-provider-payment8001/target/
+git rm -r --cached ./cloud-provider-payment8002/target/
+git rm -r --cached ./cloud-stream/target/
+git rm -r --cached ./cloud-stream-2/target/
+git rm -r --cached ./cloud-xxl-job-executor/target/
+git rm -r --cached ./study-thread/out/
+git rm -r --cached ./xxl-job-admin/target/

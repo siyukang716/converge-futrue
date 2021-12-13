@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">-->
+<head th:fragment="htmlhead">
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="renderer" content="webkit" />
+    <meta name="description" content=""></meta>
+    <meta name="author" content="wyait"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
+<!--    <link rel="icon" th:href="@{/static/images/logo.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/static/images/logo.png}" type="image/x-icon" />
+    <link rel="Bookmark" th:href="@{/static/images/logo.png}" type="image/x-icon" />-->
+    <link rel="stylesheet" th:href="@{/static/lib/layui-v2.6.3/css/layui.css}"></link>
+    <link rel="stylesheet" th:href="@{/static/css/public.css}" media="all">
+
+    <!--<script th:src="@{/static/layui/layui.all.js}" src="/static/layui/layui.all.js"></script>-->
+    <!--<script th:src="@{/static/layui/lay/modules/tree.js}"></script>-->
+	<!--<script th:src="@{/static/js/checkParam.js}"></script>-->
+
+
+    <link rel="stylesheet" href="/static/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <script type="text/javascript" th:src="@{/static/lib/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/static/js/jquery.serializejson.min.js}"></script>-->
+    <script th:src="@{/static/lib/layui-v2.6.3/layui.js}"></script>
+
+    <script th:src="@{/static/js/common.js}"></script>
+    <script th:src="@{/static/js/distpicker.2.0.7.js}"></script>
+    <script th:src="@{/static/frameJS/lay-config.js}" charset="utf-8"></script>
+</head>
+
+
+
+<head th:fragment="htmlheadFream">
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <script type="text/javascript" th:src="@{/static/js/jquery-2.1.1.min.js}"></script>
+    <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+</head>
+
+
+<div th:fragment="ztree">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/js/ztree/css/zTreeStyle/zTreeStyle.css}">
+    <script type="text/javascript" th:src="@{/static/js/ztree/jquery.ztree.all.js}"></script>
+</div>
+</html>

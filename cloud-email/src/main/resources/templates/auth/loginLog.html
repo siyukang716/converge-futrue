@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:with="title='用户管理'"></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+    <input type="hidden" th:value="${customerId}" id="reqcustomerId">
+    <a href="javascript:history.back(-1)" ><button class="layui-btn layui-btn-normal">返回</button></a>
+    <table id="loginLogList" lay-filter="loginLogTable"></table>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+        </div>
+    </script>
+    <script th:src="@{/static/js/auth/loginLog.js}"></script>
+    </div></div>
+</body>
+</html>

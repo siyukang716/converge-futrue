@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:title="sku"></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+            <input type="hidden" th:value="${productId}" id="reqproductId">
+
+            <table id="specsManagerList" lay-filter="specsManagerTable"></table>
+
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="addSpecsManager()">添加</button>
+                <a href="javascript:history.back(-1)">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm">返回</button>
+                </a>
+            </div>
+        </script>
+
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs" href="/warehouse/product/tolist/{{d.specsId}}">库存</a>
+        </script>
+        <div th:replace="product/productform :: specsManager"></div>
+        <script th:src="@{/static/js/product/specsManager.js}"></script>
+    </div>
+</div>
+</body>
+</html>

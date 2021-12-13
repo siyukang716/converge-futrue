@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="uploadfileconfig">
+    <div id="uploadfileconfigDiv" class="layer_self_wrap" style="display:none;">
+        <form id="uploadfileconfigForm" class="layui-form layui-form-pane" lay-filter="uploadfileconfigForm"
+              method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="configId" type="hidden"><!--自增主键ID-->
+
+            <!--<div class="layui-form-item">
+                <label class="layui-form-label">ip</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="ip" name="ip" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">端口</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="port" name="port" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">访问路径</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="windowsCall" name="windowsCall" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">window上传路径</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="windowsPath" name="windowsPath" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">访问路径</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="linuxCall" name="linuxCall" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">linux上传路径</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="linuxPath" name="linuxPath" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传业务key</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="businessType" name="businessType" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传业务描述</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="businessName" name="businessName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="uploadfileconfigSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

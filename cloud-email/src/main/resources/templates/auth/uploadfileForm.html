@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="uploadfile">
+    <div id="uploadfileDiv" class="layer_self_wrap" style="display:none;">
+        <form id="uploadfileForm" class="layui-form layui-form-pane" lay-filter="uploadfileForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input type="file" name="inputfile" id="inputfile">
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="uploadfileSubmit"  >立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<div th:fragment="singleuploadfile">
+    <div id="singleuploadfileDiv" class="layer_self_wrap" style="display:none;">
+        <form id="singleuploadfileForm" class="layui-form layui-form-pane" lay-filter="singleuploadfileForm" method="post"
+              action="" style="margin-top: 20px;">
+            <button type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
+        </form>
+
+    </div>
+</div>
+<div th:fragment="fastUpfile">
+    <div id="fastUpfileDiv" class="layer_self_wrap" style="display:none;">
+        <form id="fastUpfileForm" class="layui-form layui-form-pane" lay-filter="fastUpfileForm" method="post"
+              action="" style="margin-top: 20px;">
+            <button type="button" class="layui-btn layui-btn-normal" id="fastSubmin">选择文件</button>
+        </form>
+
+    </div>
+</div>

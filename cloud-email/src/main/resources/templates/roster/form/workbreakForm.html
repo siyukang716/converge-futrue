@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="workbreak">
+    <div id="workbreakDiv" class="layer_self_wrap" style="display:none;">
+        <form id="workbreakForm" class="layui-form" lay-filter="workbreakForm" method="post"
+              action="" style="margin-top: 20px;">
+            <input type="hidden" id="workDetailsId" name="workDetailsId">
+            <input type="hidden" id="arrangeRuleId" name="arrangeRuleId">
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">开始时间</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="startTime" name="startTime" lay-verify="required" readonly
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+           <!-- <div class="layui-form-item">
+                <label class="layui-form-label">截止时间</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="endTime" name="endTime" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">休息时长</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="restTime" name="restTime" lay-verify="required|number"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!--<div class="layui-form-item">
+                <label class="layui-form-label">新增时间</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="insertTime" name="insertTime" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">新增操作人</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="insertUid" name="insertUid" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">修改操作人</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="updateUid" name="updateUid" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">修改时间</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="updateTime" name="updateTime" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>-->
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="workbreakSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

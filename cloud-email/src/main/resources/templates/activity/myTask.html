@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:with="title='用户管理'"></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <!--<button class="layui-btn layui-btn-normal" onclick="addmodel()">新增流程</button>-->
+        <table id="myTaskList" lay-filter="myTaskTable"></table>
+
+
+        <script type="text/html" id="optBar">
+            <a href="{{d.formKey}}"  data-title="隐患流程"
+               data-icon="fa fa-gears" class="layui-btn layui-btn-xs">办理</a>
+            {{#  if(d.assignee != null && d.assignee != ''){ }}
+            <!--<a class="layui-btn layui-btn-xs" lay-event="completeTask">办理</a>-->
+            {{#  } else { }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="claimTask">领取任务</a>
+            {{#  } }}
+            <a class="layui-btn layui-btn-xs" lay-event="lookProcessPhoto">查看流程图</a>
+        </script>
+
+
+    </div>
+
+
+    <!--查看当前活动节点-->
+    <div id="setmyTask" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="actmyTask" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+
+            <!-- 1.获取到规则流程图 -->
+            <img id="nowPhoto" style="position: absolute;top: 0px;left: 0px;" />
+
+            <!-- 2.根据当前活动的坐标，动态绘制DIV -->
+            <div id="showStyle" style=" "></div>
+        </form>
+    </div>
+    <!--办理任务-->
+    <div id="completeTaskModel" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="completeTaskForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+            <input id="taskId" name="taskId" type="hidden">
+            <input id="processInstanceId" name="processInstanceId" type="hidden">
+            <div class="layui-form-item">
+                <label class="layui-form-label">审批意见</label>
+                <div class="layui-input-inline">
+                    <input id="taskComment" name="taskComment" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">审批结果</label>
+                <div class="layui-input-block">
+                    <select name="taskStatus" lay-verify="required">
+                        <option value=""></option>
+                        <option value="通过">通过</option>
+                        <option value="不通过">不通过</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" lay-submit="" lay-filter="completeTaskSubmit">提交</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!--底部-->
+    <script th:src="@{/static/js/activity/myTask.js}" src="/static/js/activity/myTask.js"></script>
+</div>
+</body>
+</html>

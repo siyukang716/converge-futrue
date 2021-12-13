@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <script>
+        var jSW = {
+            DependencyMgr: {
+                RegModule: function (name, model) {
+                    testModel = model;
+                    //OnGetModel()
+                }
+            },
+            RcCode: {
+                RC_CODE_S_OK: 0
+            }
+        };
+
+        var testModel = null;
+    </script>
+
+    <script src="AudioCapture.js" defer></script>
+    <script src="../../thlib/pcm/pcm-player.js"></script>
+</head>
+
+<body>
+
+    <button onclick="StartCapture()">Start Capture</button>
+    <button onclick="StopCapture()">Stop Capture</button>
+    <script>
+        function StartCapture() {
+            function onData(data) {
+                audioPlayInit();
+                //console.log(data)
+                myPcmPlayer.feed(data)
+            }
+
+
+            function onResult() {
+
+            }
+
+
+            testModel.SetCallback(onResult, onData);
+            testModel.StartCapture();
+        }
+
+        function StopCapture() {
+            testModel.StopCapture();
+            myPcmPlayer.destroy();
+            myPcmPlayer = null
+        }
+
+
+
+        var myPcmPlayer = null;
+        function audioPlayInit() {
+            if (myPcmPlayer == null) {
+                myPcmPlayer = new PCMPlayer({
+                    encoding: '16bitInt',
+                    channels: 1,
+                    sampleRate: 8000
+                })
+            }
+        }
+        //testModel.StartCapture();
+    </script>
+
+</body>
+
+</html>

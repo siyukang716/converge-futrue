@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:with="title='用户管理'"></head>
+<body class="layui-layout-body">
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+            <table id="roleList" lay-filter="roleTable"></table>
+            <script type="text/html" id="optBar">
+                <a class="layui-btn layui-btn-xs" lay-event="rolePerm">权限</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" href="/sys/role/dept/tolist/{{d.id}}">部门权限</a>
+            </script>
+
+
+
+
+        <!--添加或编辑用户-->
+        <div id="setRolePerm" class="layer_self_wrap" style="width:500px;display:none;">
+            <form id="userForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+                <input type="hidden" id="roleId">
+                <div class="layui-col-sm4">
+                    <div id="noZtree" class="ztree"
+                         style="width: 100%; height: 400px; overflow: scroll;"></div>
+                </div>
+                <div class="layui-col-sm3">
+                    <button type="button" class="layui-btn" style="margin-top: 50px;margin-left: 20px;"
+                            onclick="rolePermSave()"><i class="layui-icon"></i></button>
+                    <button type="button" class="layui-btn" style="margin-top: 50px;margin-left: 20px;"
+                            onclick="rolePermDel()"><i class="layui-icon"></i></button>
+
+                </div>
+                <div class="layui-col-sm4">
+                    <div id="yesZtree" class="ztree"
+                         style="width: 100%; height: 400px; overflow: scroll;"></div>
+                </div>
+            </form>
+        </div>
+
+        <script th:src="@{/static/js/auth/rolePerm.js}"></script>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/static/js/ztree/css/zTreeStyle/zTreeStyle.css}">
+        <script type="text/javascript" th:src="@{/static/js/ztree/jquery.ztree.all.js}"></script>
+
+    </div>
+</div>
+</body>
+</html>

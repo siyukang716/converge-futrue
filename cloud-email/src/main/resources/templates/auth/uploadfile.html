@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='断点续传'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="uploadfileList" lay-filter="uploadfileTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="adduploadfile">断点续传(大文件)</button>
+                <button class="layui-btn layui-btn-sm" lay-event="singleuploadfile">单文件上传</button>
+                <button class="layui-btn layui-btn-sm" lay-event="fastUpfile">fastDfs上传</button>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+        <div th:replace="auth/uploadfileForm :: uploadfile"></div>
+        <div th:replace="auth/uploadfileForm :: singleuploadfile"></div>
+        <div th:replace="auth/uploadfileForm :: fastUpfile"></div>
+        <script th:src="@{/static/js/auth/uploadfile.js}"></script>
+    </div></div>
+</body>
+</html>

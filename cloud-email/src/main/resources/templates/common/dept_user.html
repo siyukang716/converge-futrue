@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="commonDeptTreeLinkUserList">
+    <script type="text/javascript" th:inline="none">
+        var pageCurr;
+        var tableIns;
+        $(function () {
+            layui.use(['table', 'laydate', 'util'], function () {
+                var table = layui.table;
+                var laydate = layui.laydate;
+                var form = layui.form;
+                tableIns = table.render({
+                    elem: '#commonUesrList'
+                    , id: 'uesrCommonListReload'
+                    , url: '/user/getPageList'
+                    //, method: 'get' //默认：get请求
+                    , cellMinWidth: 80
+                    //, toolbar: '#toolbarDemo'
+                    //, defaultToolbar: ['filter', 'print', 'exports']
+                    , page: true
+                    , skin: 'line'
+                    , even: true
+                    , height: 'full-300'
+                    , request: {
+                        pageName: 'current' //页码的参数名称，默认：page
+                        , limitName: 'size' //每页数据量的参数名，默认：limit
+                    }, response: {
+                        statusName: 'code' //数据状态的字段名称，默认：code
+                        , statusCode: 200 //成功的状态码，默认：0
+                        , countName: 'totals' //数据总数的字段名称，默认：count
+                        , dataName: 'list' //数据列表的字段名称，默认：data
+                        , msgName: 'message'
+                    }
+                    , cols: [[
+                        {type: 'numbers'}
+                        , {type: 'checkbox'}
+                        , {field: 'id', title: 'ID', width: 180, hide: true}
+                        , {field: 'username', title: '用户名'}
+                        , {field: 'mobile', title: '账号'}
+                        , {field: 'email', title: '邮箱'}
+                        , {field: 'roleName', title: '角色名称', minWidth: 80}
+
+                    ]]
+                    , done: function (res, curr, count) {
+                        pageCurr = curr;
+                    }
+                });
+
+
+            });
+
+
+        });
+
+        function deptZTreeInstanceOnClickCall(event, treeId, treeNode, clickFlag) {
+            loadTable('uesrCommonListReload', {'deptid': treeNode.dept_id});
+        }
+
+        /**
+         * 获取选中用户数据
+         */
+        function getCommonCheckUserData() {
+            var checkStatus = layui.table.checkStatus('uesrCommonListReload');
+            var data = checkStatus.data;
+            getCommonCheckUserDataCallBack(data);
+        }
+
+
+    </script>
+    <div id="commonDeptTreeLinkUserListDiv" class="layui-row" style="display:none;">
+        <button class="layui-btn" onclick="getCommonCheckUserData()">确定</button>
+        <div class="layui-row">
+            <div class="layui-col-sm2">
+                <!--<div id="commonDeptZTreeInstance" class="ztree"
+                     style="width: 100%; height: 500px; overflow: scroll;"></div>-->
+                <div th:replace="common/deptTree :: deptTreeControl"></div>
+            </div>
+
+            <div class="layui-col-sm10">
+                <table id="commonUesrList" lay-filter="userTable"></table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

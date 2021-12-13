@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="company">
+    <div id="companyDiv" class="layer_self_wrap" style="display:none;">
+        <form id="companyForm" class="layui-form" lay-filter="companyForm" method="post"
+              action="" style="margin-top: 20px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">公司名称</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="companyName" name="companyName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">公司简介</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="companyInfo" name="companyInfo" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">管理员账号</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="userName" name="userName" lay-verify="required"
+                           autocomplete="off" class="layui-input"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">管理员账号密码</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="password" name="password" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="companySubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<div th:fragment="companyUpdate">
+    <div id="companyUpdateDiv" class="layer_self_wrap" style="display:none;">
+        <form id="companyUpdateForm" class="layui-form" lay-filter="companyUpdateForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="companyId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">公司名称</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text"  name="companyName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">公司简介</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text"  name="companyInfo" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="companyUpdateSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+
+
+
+<div th:fragment="companyPerm">
+    <div id="setCompanyPermDiv" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="setCompanyPermForm" class="layui-form layui-form-pane" method="post" action=""
+              style="margin-top: 20px;">
+            <input type="hidden" id="treeCompanyId">
+            <div class="layui-col-sm4">
+                <div id="noPermZtree" class="ztree"
+                     style="width: 100%; height: 400px; overflow: scroll;"></div>
+            </div>
+            <div class="layui-col-sm3">
+                <button type="button" class="layui-btn" style="margin-top: 50px;margin-left: 20px;"
+                        onclick="companyPermSave()"><i class="layui-icon"></i></button>
+                <button type="button" class="layui-btn" style="margin-top: 50px;margin-left: 20px;"
+                        onclick="companyPermDel()"><i class="layui-icon"></i></button>
+
+            </div>
+            <div class="layui-col-sm4">
+                <div id="yesPermZtree" class="ztree"
+                     style="width: 100%; height: 400px; overflow: scroll;"></div>
+            </div>
+        </form>
+    </div>
+</div>

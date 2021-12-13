@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.CustomerAddrMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.CustomerAddrEntity">
+        <id column="customer_addr_id" property="customerAddrId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="zip" property="zip"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="address" property="address"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        customer_addr_id
+        , customer_id, zip, province, city, district, address, is_default, modified_time
+    </sql>
+
+</mapper>

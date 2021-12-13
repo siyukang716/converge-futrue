@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:with="title='定时任务'"></head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头-->
+    <div th:replace="fragments/head :: header"></div>
+
+    <div class="layui-body" style="margin: 1%">
+
+        <!--<hr class="layui-bg-blue"/>-->
+        <hr class="layui-bg-black"/>
+        <!--<shiro:hasPermission name="usercreate">
+            <button class="layui-btn layui-btn-normal" onclick="addUser()">开通用户</button>
+        </shiro:hasPermission>
+        <button class="layui-btn layui-btn-normal" onclick="nolockUser()">解锁</button>-->
+
+        <div style="display:none;" id="currentUser">
+            <shiro:principal property="id"></shiro:principal>
+        </div>
+        <span th:text="${typeflag}"></span>
+        <table id="uesrList" lay-filter="userTable"></table>
+
+        <script type="text/html" id="jobTpl">
+            {{#  if(d.taskflag == '0'){ }}
+            <input type="checkbox" name="" value="{{d.rateid}}" lay-skin="switch"
+                   lay-text="启动任务|关闭任务" lay-filter="isJobTpl" checked="checked"/>
+            {{#  } else { }}
+            <input type="checkbox" name="" value="{{d.rateid}}" lay-skin="switch"
+                   lay-text="启动任务|关闭任务" lay-filter="isJobTpl"/>
+            {{#  } }}
+        </script>
+
+
+
+    </div>
+
+
+    <!--底部-->
+    <div th:replace="fragments/footer :: footer"></div>
+    <script th:src="@{/static/js/timer/checkPlan.js}"></script>
+<script>
+    var typeflag = '[[${typeflag}]]';
+    //alert(message)
+</script>
+
+</div>
+</body>
+</html>

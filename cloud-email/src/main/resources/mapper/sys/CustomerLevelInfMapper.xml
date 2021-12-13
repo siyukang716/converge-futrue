@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.CustomerLevelInfMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.CustomerLevelInfEntity">
+        <id column="customer_level" property="customerLevel"/>
+        <result column="level_name" property="levelName"/>
+        <result column="min_point" property="minPoint"/>
+        <result column="max_point" property="maxPoint"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        customer_level
+        , level_name, min_point, max_point, modified_time
+    </sql>
+
+</mapper>

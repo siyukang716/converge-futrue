@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="${fileName}">
+    <div id="${fileName}Div" class="layer_self_wrap" style="display:none;">
+        <form id="${fileName}Form" class="layui-form" lay-filter="${fileName}Form" method="post"
+              action="" style="margin-top: 20px;">
+
+            #foreach($field in ${columns})
+                #if($field.isPk.equals("1"))##生成主键排在第一位
+                    <input name="${field.javaField}" type="hidden"><!--自增主键ID-->
+                #end
+            #end
+
+            #foreach($field in ${columns})
+                #if($field.isPk.equals("0"))##生成普通字段
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">${field.columnComment}</label>
+                        <div class="layui-input-block">
+                            <input placeholder="" type="text" id="${field.javaField}" name="${field.javaField}" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                #end
+            #end
+
+
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="${fileName}Submit">立即提交</button>
+                    #*<button type="reset" class="layui-btn layui-btn-primary">重置</button>*#
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

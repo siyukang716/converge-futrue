@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='公共字典'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <table id="syscommondictList" lay-filter="syscommondictTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="addsyscommondict">添加</button>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs" href="/system/dict/kv/tolist/{{d.dictType}}">值管理</a>
+            <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+        </script>
+        <div th:replace="auth/form/syscommondictForm.html :: syscommondict"></div>
+        <script th:src="@{/static/js/auth/syscommondict.js}"></script>
+    </div>
+</div>
+</body>
+</html>

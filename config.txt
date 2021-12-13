@@ -1,0 +1,21 @@
+手动刷新
+配置中心配置覆盖本地配置
+
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+@RefreshScope
+需要post 请求
+cmd   curl -X  POST "http://localhost:3355/actuator/refresh"
+
+
+
+bus 整合后
+通知所有刷新
+cmd   curl -X  POST http://localhost:3344/actuator/bus-refresh
+通知指定刷新
+cmd   curl -X  POST http://localhost:3344/actuator/bus-refresh/config-client:3355

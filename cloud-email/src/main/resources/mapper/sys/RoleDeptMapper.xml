@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.RoleDeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.RoleDeptEntity">
+        <id column="r_d_purview" property="rDPurview"/>
+        <result column="role_id" property="roleId"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="business_type" property="businessType"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="insert_uid" property="insertUid"/>
+        <result column="update_uid" property="updateUid"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        r_d_purview
+        ,role_id,dept_id,business_type,insert_time,insert_uid,update_uid,update_time
+    </sql>
+    <select id="pageCustomize" resultType="java.util.Map">
+        SELECT sud.r_d_purview rDPurview,sd.dept_name deptName,sud.business_type businessType FROM sys_role_dept sud INNER JOIN sys_dept sd ON sd.dept_id = sud.dept_id
+            ${ew.customSqlSegment}
+
+    </select>
+
+</mapper>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='购物吧'></head>
+<body class="layui-layout-body">
+<h1 align="center">商品简介</h1>
+<hr>
+
+    <a href="javascript:history.back(-1);" data-refresh="刷新"><i class="fa fa-chevron-left"></i>返回</a>
+
+<script>
+    var m = {};
+</script>
+
+<form id="productDetailsForm" class="layui-form layui-form-pane" lay-filter="productDetailsForm" method="post"
+      action="" style="margin-top: 20px;">
+    <input type="hidden" name="count" id="productCnt" value="1">
+    <div class="layui-form-item">
+        <div class="layui-input-inline" style="min-width: 400px;min-height: 300px;">
+            <img th:src="${map.pic[0].picUrl}" style="max-width: 400px;max-height: 300px;">
+        </div>
+        <div class="layui-input-inline" style="min-width: 400px;min-height: 300px;">
+            商品名称：<span th:text="${map.product.productName}"/><br>
+            <input th:value="${map.product.productName}" name="productName" type="hidden">
+            <hr>
+            商品选项:<br>
+            <span th:each="collect,iterStat : ${map.specs}">
+                <span th:if="${iterStat.index}==0">
+                    <input type="radio" name="specsId" th:value="${collect.specsId}"
+                           th:title="'  '+${collect.skuDepict }+'/'+${collect.productPrice}+'元'" checked><br>
+                </span>
+                <span th:if="${iterStat.index}!=0">
+                    <input type="radio" name="specsId" th:value="${collect.specsId}"
+                           th:title="'  '+${collect.skuDepict }+'/'+${collect.productPrice}+'元'"><br>
+                </span>
+                <script th:inline="javascript">
+                    var specsId = [[${collect.specsId}]];
+                    m[specsId] = [[${collect}]];
+                </script>
+            </span>
+            <hr>
+            购买数量:
+            <div id="slideTest8" class="demo-slider"></div>
+            <br>
+            <hr>
+            应付:<input name="orderMoney" readonly id="orderMoney" th:value="${map.specs[0].productPrice}"  />元<br>
+            实付:<input name="paymentMoney" id="paymentMoney" th:value="${map.specs[0].productPrice}" lay-verify="required" />元
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <span th:each="collect,iterStat : ${map.pic}">
+        <img th:src="${collect.picUrl}" style="width: 50px;height: 100px;" onclick="lookPic(this)" name="picUrl"/>
+
+    </span>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="productDetailsSubmit" style="margin-left: 40%;">购买</button>
+            <button class="layui-btn" lay-submit lay-filter="addBuyCart">加入购物车</button>
+        </div>
+    </div>
+</form>
+
+<script>
+$(function () {
+    //var product = ${product};
+    layui.use(['jquery', 'layer', 'laypage', 'slider', 'form'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            slider = layui.slider,
+            form = layui.form,
+            laypage = layui.laypage;
+        //开启输入框
+        slider.render({
+            elem: '#slideTest8'
+            , input: true //输入框
+            , min: 1
+            , value: 1
+            , change: function (value) {
+                $("#productCnt").val(value);
+                var val = $('input[name="specsId"]:checked').val();
+                var price = m[val].productPrice;
+                $("#orderMoney").val(floatMul(value, price))
+                $("#paymentMoney").val(floatMul(value, price))
+
+            }
+        });
+
+
+        //监听提交
+        form.on('submit(productDetailsSubmit)', function (data) {
+            // TODO 校验
+            shopping(data);
+            return false;
+        });
+        form.on('submit(addBuyCart)', function (data) {
+            // TODO 校验
+            addBuyCart(data);
+            return false;
+        });
+    });
+});
+
+function lookPic(data) {
+    //页面层-图片
+    var arr = [];
+    var picUrl = $("[name=picUrl]");
+    debugger;
+    for (var i = 0; i < picUrl.length; i++) {
+        arr.push({
+            "alt": "图片名",
+            "pid": 666, //图片id
+            "src": picUrl[i].src, //原图地址
+            "thumb": picUrl[i].src //缩略图地址
+        });
+    }
+    layer.photos({
+        photos: {
+            "title": "", //相册标题
+            "id": 123, //相册id
+            "start": 0, //初始显示的图片序号，默认0
+            "data": arr
+        }
+        , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+}
+/**
+ *  用户下单
+ * @param specsId   商品型号id
+ * @param productName 商品名称
+ * @param productCnt 购买商品数
+ * @param productPrice 商品单价
+ * @param paymentMoney 实际支付金额
+ * @param orderMoney 订单金额
+ * @return
+ */    
+function shopping(data) {
+    var obj = {};
+    obj.specsId = data.field.specsId;
+    obj.productName = data.field.productName;
+    obj.productCnt = data.field.count;
+    obj.productPrice = m[specsId].productPrice;
+    obj.paymentMoney = data.field.paymentMoney;
+    obj.orderMoney = data.field.orderMoney;
+    getData("/order/master/placeAnOrder",obj,callBuyShopping);
+}
+
+/**
+ * 加入购物车
+ * @param data
+ */
+function addBuyCart(data) {
+    var obj = {};
+    obj.skuId = data.field.specsId;
+    obj.amount = data.field.count;
+    getData("/buy/cart/addCart", obj, callBuyShopping);
+}
+function callBuyShopping(data) {
+    layer.msg(data.message, {icon: 6});
+}
+</script>
+</body>
+</html>

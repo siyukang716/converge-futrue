@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='角色部门数据权限'></head>
+<div th:replace="layout :: ztree"></div>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <input type="hidden" th:value="${roleId}" id="reqroleId">
+        <table id="roledeptList" lay-filter="roledeptTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="openDept">添加</button>
+                <a href="/role/rolePerm" ><button class="layui-btn layui-btn-normal layui-btn-sm">返回</button></a>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+           <!-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+        <!--<div th:replace="auth/form/roledeptForm :: roledept"></div>-->
+        <div th:replace="common/dept_radio_Tree :: dept_radio_TreeControl" ></div>
+        <script th:src="@{/static/js/auth/roledept.js}"></script>
+    </div></div>
+</body>
+</html>

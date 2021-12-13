@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='公司维护'></head>
+<div th:replace="layout :: ztree"></div>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="companyList" lay-filter="companyTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="addcompany">添加</button>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="authority">权限</a>
+        </script>
+        <div th:replace="auth/form/companyForm :: company"></div>
+        <div th:replace="auth/form/companyForm :: companyUpdate"></div>
+        <div th:replace="auth/form/companyForm :: companyPerm"></div>
+        <script th:src="@{/static/js/auth/company.js}"></script>
+    </div>
+</div>
+</body>
+</html>

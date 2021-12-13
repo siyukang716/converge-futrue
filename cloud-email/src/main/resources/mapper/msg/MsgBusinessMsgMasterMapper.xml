@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.msg.mapper.MsgBusinessMsgMasterMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.msg.entity.MsgBusinessMsgMasterEntity">
+        <id column="msg_id" property="msgId"/>
+        <result column="msg_content" property="msgContent"/>
+        <result column="msg_title" property="msgTitle"/>
+        <result column="business_id" property="businessId"/>
+        <result column="business_url" property="businessUrl"/>
+        <result column="business_type" property="businessType"/>
+        <result column="msg_status" property="msgStatus"/>
+        <result column="msg_post_time" property="msgPostTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        msg_id
+        ,msg_content,msg_title,business_id,business_url,business_type,msg_status,msg_post_time
+    </sql>
+    <select id="pageSelfMsg" resultType="com.cloud.msg.entity.MsgBusinessMsgMasterEntity">
+        SELECT bmm.* FROM msg_business_msg_master bmm
+        INNER JOIN msg_business_sub bs ON bmm.msg_id = bs.msg_id
+            ${ew.customSqlSegment}
+    </select>
+
+</mapper>

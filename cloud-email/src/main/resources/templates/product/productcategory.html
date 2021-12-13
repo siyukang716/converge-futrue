@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead" th:with="title='权限管理'"></head>
+<body class="layui-layout-body">
+<div class="layuimini-container">
+        <div class="layui-col-sm3">
+            <div id="categoryZTree" class="ztree"
+                 style="width: 100%; height: 500px; overflow: scroll;"></div>
+        </div>
+        <div class="layui-col-sm7 layui-col-md-offset1" style="margin-top: 10px">
+            <form id="categoryForm" class="layui-form" method="post" action="" lay-filter="categoryForm"
+                  style="margin-top: 20px;">
+                <input id="categoryId" type="hidden" name="categoryId"/>
+                <input id="parentId" type="hidden" name="parentId"/>
+                <input id="categoryLevel" type="hidden" name="categoryLevel"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分类名称</label>
+                    <div class="layui-input-inline">
+                        <input name="categoryName" lay-verify="required" autocomplete="off" class="layui-input"
+                               type="text"/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分类编码</label>
+                    <div class="layui-input-inline">
+                        <input name="categoryCode" autocomplete="off" class="layui-input" type="text"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分类状态</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="categoryStatus" value="1" title="可用" checked>
+                        <input type="radio" name="categoryStatus" value="0" title="不可用">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="margin-left: 10px;">
+                        <button class="layui-btn" lay-submit="" lay-filter="addSubmit">添加节点</button>
+                        <button class="layui-btn" lay-submit="" lay-filter="saveSubmit">保存</button>
+                        <button class="layui-btn" lay-submit="" lay-filter="deleteSubmit">删除</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <link rel="stylesheet" th:href="@{/static/js/ztree/css/zTreeStyle/zTreeStyle.css}"></link>
+        <script type="text/javascript" src="/static/js/ztree/jquery.ztree.all.js"></script>
+        <script src="/static/js/product/product_category.js"></script>
+</div>
+</body>
+</html>

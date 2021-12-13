@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.IpConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.IpConfigEntity">
+        <id column="ip_id" property="ipId"/>
+        <result column="ip_address" property="ipAddress"/>
+        <result column="insert_uid" property="insertUid"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_uid" property="updateUid"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ip_id
+        ,ip_address,insert_uid,insert_time,update_uid,update_time
+    </sql>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.SysDeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.SysDeptEntity">
+        <id column="dept_id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <result column="parent_dept_id" property="parentDeptId"/>
+        <result column="tel" property="tel"/>
+        <result column="delflag" property="delflag"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        dept_id
+        ,dept_name,parent_dept_id,tel,delflag,insert_time,update_time
+    </sql>
+    <select id="treeList" resultType="java.util.Map">
+        SELECT *,IF((SELECT count(*) FROM sys_dept b WHERE b.parent_dept_id = a.dept_id  AND b.delflag = 1 ) >  0,'true','false')
+            as isParent FROM sys_dept a
+            ${ew.customSqlSegment}
+
+    </select>
+
+</mapper>

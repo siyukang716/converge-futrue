@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.product.mapper.MmallAttributeKeyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.product.entity.MmallAttributeKeyEntity">
+        <id column="mak_id" property="makId"/>
+        <result column="attribute_name" property="attributeName"/>
+        <result column="name_sort" property="nameSort"/>
+        <result column="add_time" property="addTime"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        mak_id
+        , attribute_name, name_sort, add_time, modified_time
+    </sql>
+
+    <select id="getlistMaps" resultType="java.util.Map">
+        SELECT k.attribute_name keyname, v.attribute_value valname,k.is_select isselect
+        FROM mmall_attribute_key k
+                 LEFT JOIN mmall_attribute_value v ON k.mak_id = v.mak_id
+            ${ew.customSqlSegment}
+
+    </select>
+
+</mapper>

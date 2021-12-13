@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='物流公司信息'></head>
+<div th:replace="layout :: ztree"></div>
+<body class="layui-layout-body">
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>部门_用户_关联组件多选</legend>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="openU_D()">部门_用户_关联组件_多选</button>
+            <br>
+            使用方法<br>
+            1.在需要使用此组件页面引入<br>
+            &ltdiv th:replace="layout :: ztree"&gt&lt/div&gt<br>
+            &ltdiv th:replace="common/dept_user :: commonDeptTreeLinkUserList"&gt&lt/div&gt
+            <!--
+            <div th:replace="layout :: ztree"></div>
+            <div th:replace="common/dept_user :: commonDeptTreeLinkUserList"></div>
+            -->
+            <br>
+            2.使用编写函数弹出此组件<br>
+            <pre>
+            <code>
+                //funName 名称自己定义
+                function funName() {
+                    openForm('commonDeptTreeLinkUserListDiv', '', '添加', '100%');
+                    loadTable('uesrCommonListReload', {});
+                }
+            </code>
+            </pre>
+            3.编写回调函数,接收选中用户数据<br>
+            <pre>
+            <code>
+                //函数名称必须是 getCommonCheckUserDataCallBack
+                //data 为选中数据
+                function getCommonCheckUserDataCallBack(data) {
+                    var names = [],ids = [];
+                    for (let key in data) {
+                        names.push(data[key]['username']);
+                        ids.push(data[key]['id']);
+                    }
+                    console.info(names.join(','));
+                    console.info(ids.join(','));
+                    layer.close(layer.index);//必须有
+                    $("#commonDeptTreeLinkUserListDiv").hide();//必须有
+                    layer.msg("获取成功");
+                }
+            </code>
+            </pre>
+
+        </fieldset>
+
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>部门_用户_关联组件_单选</legend>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="openRadio_D()">部门_用户_关联组件_单选</button>
+            <br>
+            使用方法<br>
+            1.在需要使用此组件页面引入<br>
+            &ltdiv th:replace="layout :: ztree"&gt&lt/div&gt<br>
+            &ltdiv th:replace="common/dept_user_radio :: commonDeptTreeLinkRadioUserList"&gt&lt/div&gt
+            <!--
+            <div th:replace="layout :: ztree"></div>
+            <div th:replace="common/dept_user :: commonDeptTreeLinkUserList"></div>
+            -->
+            <br>
+            2.使用编写函数弹出此组件<br>
+            <pre>
+            <code>
+                //funName 名称自己定义
+                function funName() {
+                    openForm('commonDeptTreeLinkRadioUserListDiv', '', '添加', '100%');
+                    loadTable('uesrCommonRadioListReload', {'deptid': "909"});
+                }
+            </code>
+            </pre>
+            3.编写回调函数,接收选中用户数据<br>
+            <pre>
+            <code>
+                //函数名称必须是 getCommonCheckUserDataCallBack
+                //data 为选中数据
+                //treeNode 选择树节点
+                function getCommonCheckUserDataCallBack(data,treeNode) {
+                    layer.close(layer.index);//必须有
+                    $("#commonDeptTreeLinkUserListDiv").hide();//必须有
+                    layer.msg("获取成功");
+                }
+            </code>
+            </pre>
+
+        </fieldset>
+
+
+
+
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>单选部门树组件</legend>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="open_dept_tree_radio()">单选部门树</button>
+
+            <pre>
+                <code>
+            使用方法
+            1.在需要使用此组件页面引入
+            &ltdiv th:replace="layout :: ztree"&gt&lt/div&gt
+            &ltdiv th:replace="common/dept_radio_Tree :: dept_radio_TreeControl" &gt&lt/div&gt
+            2.使用编写函数弹出此组件
+            //funName 名称自己定义
+            function funName() {
+                openForm('common_dept_radio_TreeDiv', '', '单选部门组件');
+            }
+            3.单选回调函数  必须有
+            function dept_radio_Tree_submit_CallBack(node) {
+                layer.msg(JSON.stringify(node));
+            }
+                 </code>
+             </pre>
+        </fieldset>
+
+
+
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>数据权限单选部门树组件</legend>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="open_dept_tree_purview_radio()">单选部门树</button>
+
+            <pre>
+                <code>
+            使用方法
+            1.在需要使用此组件页面引入
+            &ltdiv th:replace="layout :: ztree"&gt&lt/div&gt
+            &ltdiv th:replace="common/dept_radio_purview_Tree :: dept_radio_purview_TreeControl" &gt&lt/div&gt
+            2.使用编写函数弹出此组件
+            //funName 名称自己定义
+            function funName() {
+                openForm('common_dept_purview_radio_TreeDiv', '', '单选部门组件');
+            }
+            调用树权限初始化函数
+            $(function(){
+                /**
+                 * 参数：isSelf 为 true时 获取当前登录部门树  为false是 获取当前登录角色部门数据权限树
+                 */
+                load_dept_radio_purview_Tree(true);
+            });
+            3.单选回调函数  必须有
+            function dept_radio_purview_Tree_submit_CallBack(node) {
+                layer.msg("选中树节点是："+JSON.stringify(node));
+            }
+                 </code>
+             </pre>
+        </fieldset>
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>数据权限多选部门树组件</legend>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="open_dept_tree_purview_Multiple()">多选部门树
+            </button>
+
+            <pre>
+                <code>
+            使用方法
+            1.在需要使用此组件页面引入
+            &ltdiv th:replace="layout :: ztree"&gt&lt/div&gt
+            &ltdiv th:replace="common/dept_radio_purview_Tree :: dept_radio_purview_TreeControl" &gt&lt/div&gt
+            2.使用编写函数弹出此组件
+            //funName 名称自己定义
+            function funName() {
+                openForm('common_dept_purview_Multiple_TreeDiv', '', '单选部门组件');
+            }
+            调用树权限初始化函数
+            $(function(){
+                /**
+                 * 参数：isSelf 为 true时 获取当前登录部门树  为false是 获取当前登录角色部门数据权限树
+                 */
+                load_dept_Multiple_purview_Tree(true);
+            });
+            3.单选回调函数  必须有
+            function dept_Multiple_purview_Tree_submit_CallBack(nodes) {
+                layer.msg("选中树节点是："+JSON.stringify(nodes));
+            }
+                 </code>
+             </pre>
+        </fieldset>
+
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>消息模块插入消息和订阅业务</legend>
+            <pre>
+                <code>
+            /**
+             * 插入消息   和消息订阅人员
+             * @param msg 消息主表
+             * @param userIds  消息订阅用户id集合
+             * @return
+             */
+            MsgBusinessMsgMasterService.insertMsg(MsgBusinessMsgMasterEntity msg, List userIds)
+                </code>
+            </pre>
+
+        </fieldset>
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>layui中获取表格全部数据</legend>
+            <pre>
+                <code>
+                通过layui.table.cache["testReload"]的方式来获取表格全部数据，其中testReload是表格id
+                </code>
+            </pre>
+
+        </fieldset>
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>layui日期控件</legend>
+            <pre>
+                <code>
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        //日期
+        laydate.render({
+            elem: '#checkDate'
+        });
+                </code>
+            </pre>
+
+        </fieldset>
+
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>导出Excel</legend>
+            <pre>
+                <code>
+            1.实体类字段增加注解  @Excel
+            @Excel 用法,查看注解类
+            2.Controller 接口
+            @GetMapping("/importTemplate")
+            public void importTemplate(HttpServletResponse response) throws Exception {
+                ExcelUtil&ltxxxEntity> util = new ExcelUtil&ltxxxEntity>(xxxEntity.class);
+                Result result = util.importTemplateExcel("工作表的名称");
+                String fileName = (String) result.getData();
+                if (!FileUtils.checkAllowDownload(fileName)) {
+                    throw new RuntimeException(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
+                }
+                String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
+                String filePath = RuoYiConfig.getDownloadPath() + fileName;
+                response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+                FileUtils.setAttachmentResponseHeader(response, realFileName);
+                FileUtils.writeBytes(filePath, response.getOutputStream());
+                FileUtils.deleteFile(filePath);
+
+            }
+                </code>
+            </pre>
+
+        </fieldset>
+
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>导入Excel</legend>
+            <pre>
+                <code>
+            1.实体类字段增加注解  @Excel
+            @Excel 用法,查看注解类
+            2.Controller 接口
+            @PostMapping("/importData")
+            @ResponseBody
+            public Result importData(MultipartFile file) throws Exception {
+                Result result = Result.getInstance();
+                ExcelUtil&ltxxxEntity> util = new ExcelUtil&ltxxxEntity>(ContractorBasicInfoEntity.class);
+                List&ltxxxEntity> entities = util.importExcel(file.getInputStream());
+                String message = service.insert(entities);
+                result.setStatus(IStatusMessage.SystemStatus.SUCCESS.getCode());
+                result.setMessage(message);
+                return result;
+            }
+                </code>
+            </pre>
+        </fieldset>
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>layui 日期格式化</legend>
+            <pre>
+                <code>
+        templet: "<div>{{layui.util.toDateString(d.insertTime, 'yyyy-MM-dd')}}</div>"
+                 </code>
+             </pre>
+        </fieldset>
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>获取当前登录人部门</legend>
+            <pre>
+                <code>
+                    SysUserDeptService类
+                    userDeptService.getDeptidByLoginUser();
+                 </code>
+             </pre>
+        </fieldset>
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>获取部门公共组件</legend>
+            <pre>
+                <code>
+                    SysDeptService 类
+                    /**
+                     * 获取当前登录人部门所有子部门id集合
+                     * @return
+                     */
+                    public Set&ltLong> getOnlineAllChildDeptsIds()
+                    /**
+                     * 获取指定部门所有子部门id集合
+                     * @return
+                     */
+                    public Set&ltLong> getAllChildDeptsIds(Long deptid)
+
+                    /**
+                     * 获取当前登录人部门所有子部门
+                     * @return
+                     */
+                    public List&ltSysDeptEntity> getOnlineAllChildDepts()
+                    /**
+                     * 获取指定部门所有子部门
+                     * @param deptid
+                     * @return
+                     */
+                    public List&ltSysDeptEntity> getAllChildDeptsById(Long deptid)
+                 </code>
+             </pre>
+        </fieldset>
+
+
+        <hr class="layui-border-green">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>js 拼接数组某个字段为字符串</legend>
+            <pre>
+                <code>
+                    array.map((obj) => {
+                        return obj.id;
+                    }).join(",");
+                 </code>
+             </pre>
+        </fieldset>
+
+
+        <div th:replace="common/dept_user :: commonDeptTreeLinkUserList"></div>
+        <div th:replace="common/dept_user_radio :: commonDeptTreeLinkRadioUserList"></div>
+        <div th:replace="common/dept_radio_Tree :: dept_radio_TreeControl"></div>
+        <div th:replace="common/dept_radio_purview_Tree :: dept_radio_purview_TreeControl"></div>
+        <div th:replace="common/dept_Multiple_purview_Tree :: dept_Multiple_purview_TreeControl"></div>
+        <!--<script th:src="@{/static/js/order/shippinginfo.js}"></script>-->
+    </div>
+</div>
+<script>
+    $(function(){
+        /**
+         * 参数：isSelf 为 true时 获取当前登录部门树  为false是 获取当前登录角色部门数据权限树
+         */
+        load_dept_radio_purview_Tree(false);
+        load_dept_Multiple_purview_Tree(true);
+    })
+    function openU_D() {
+        openForm('commonDeptTreeLinkUserListDiv', '', '用户联动组件', '90%');
+        loadTable('uesrCommonListReload', {});
+    }
+
+    function openRadio_D() {
+        openForm('commonDeptTreeLinkRadioUserListDiv', '', '用户联动组件', '90%');
+        loadTable('uesrCommonRadioListReload', {'deptid': "909"});
+    }
+
+    function open_dept_tree_radio() {
+        openForm('common_dept_radio_TreeDiv', '', '部门组件');
+    }
+    function dept_radio_Tree_submit_CallBack(node) {
+        layer.msg(JSON.stringify(node));
+    }
+    /**
+     * 单选权限部门主键树
+     */
+    function open_dept_tree_purview_radio() {
+        openForm('common_dept_purview_radio_TreeDiv', '', '部门组件');
+    }
+    function dept_Multiple_purview_Tree_submit_CallBack(nodes) {
+        layer.msg("选中树节点是："+JSON.stringify(nodes));
+    }
+    /**
+     * 多选权限部门主键树
+     */
+    function open_dept_tree_purview_Multiple() {
+        openForm('common_dept_purview_Multiple_TreeDiv', '', '部门组件');
+    }
+    function dept_radio_purview_Tree_submit_CallBack(node) {
+        layer.msg("选中树节点是："+JSON.stringify(node));
+    }
+
+
+    /**
+     * 用户组件多选回调
+     * @param data
+     */
+    function getCommonCheckUserDataCallBack(data) {
+        layer.close(layer.index);
+        $("#commonDeptTreeLinkUserListDiv").hide();
+        layer.msg("获取成功");
+        console.info('多选:' + data);
+    }
+
+    /**
+     * 用户组件单选回调
+     * @param data
+     */
+    function getCommonRadioCheckUserDataCallBack(data,treeNode) {
+        layer.close(layer.index);
+        $("#commonDeptTreeLinkRadioUserListDiv").hide();
+        layer.msg("单选获取成功");
+        console.info('单选:' + data);
+        console.info(treeNode);
+    }
+
+</script>
+</body>
+</html>

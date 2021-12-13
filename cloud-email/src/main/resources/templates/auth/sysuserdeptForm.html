@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sysuserdept">
+    <div id="sysuserdeptDiv" class="layer_self_wrap" style="display:none;">
+        <form id="sysuserdeptForm" class="layui-form layui-form-pane" lay-filter="sysuserdeptForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="linkId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门id</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="deptId" name="deptId" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户id</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="userId" name="userId" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="sysuserdeptSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

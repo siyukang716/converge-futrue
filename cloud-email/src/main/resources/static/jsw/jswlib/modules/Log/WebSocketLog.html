@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <div id="logDivId"></div>
+    </body>
+    <script>
+            var ws = new WebSocket("ws://" + window.location.host + "/jswlog")
+            ws.onopen = function(){
+
+            }
+            ws.onmessage = function(evt){
+                document.getElementById("logDivId").innerHTML += "<div>" +  evt.data  + "</div>"
+            }
+
+            ws.onclose = function(){
+
+            }
+        </script>
+</html>

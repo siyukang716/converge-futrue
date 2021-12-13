@@ -1,0 +1,83 @@
+package ${packageName}.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
+import java.util.Date;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+/**
+ *
+ * @ClassName: ${entityName}
+ * @Description: ${table.tableComment}
+ * @author ${author}
+ * @date ${date}
+ */
+
+
+@Data
+@EqualsAndHashCode(callSuper =true)
+@TableName("${table.tableName}")
+@ApiModel("${table.tableComment}")
+public class ${entityName}Entity extends Model<${entityName}Entity> implements Serializable  {
+
+    private static final long serialVersionUID = 1L;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${columns})
+
+    #if("$!field.columnComment" !="")
+    /**
+     * ${field.columnComment}
+     */
+    #end
+    #if("$field.isPk" == "1")
+        ## 主键
+        #if("$field.isIncrement" == "1")
+    @TableId(value="${field.columnName}", type= IdType.AUTO)
+        ##elseif(${field.convert})
+       ## @TableId("${field.name}")
+        #else
+    @TableId("${field.columnName}")
+        #end
+        ## 普通字段
+    #elseif("$field.javaField" == "createTime"
+        || "$field.javaField" == "insertTime" || "$field.javaField" == "addTime")
+        ## -----   存在字段填充设置   -----
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
+    @TableField(value ="${field.columnName}", fill = FieldFill.INSERT)
+    #elseif("$field.javaField" == "updateTime"
+    || "$field.javaField" == "modifiedTime")
+        ## -----   存在字段填充设置   -----
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
+    @TableField(value ="${field.columnName}", fill = FieldFill.INSERT_UPDATE)
+    #elseif("$field.javaField" == "isDel"  || "$field.javaField" == "insertUid")
+    @TableField(value ="${field.columnName}", fill = FieldFill.INSERT)
+    #elseif("$field.javaField" == "isDel"  || "$field.javaField" == "updateUid")
+    @TableField(value ="${field.columnName}", fill = FieldFill.UPDATE)
+    #else
+    @TableField("${field.columnName}")
+    #end
+    ## 乐观锁注解
+    ##if(${versionFieldName}==${field.name})
+    ##@Version
+    ##end
+    ## 逻辑删除注解
+    ###if(${logicDeleteFieldName}==${field.name})
+   ## @TableLogic
+    ##end
+    @ApiModelProperty(value = "${field.columnComment}")
+    private ${field.javaType} ${field.javaField};
+
+#end
+
+
+## ----------  END 字段循环遍历  ----------
+}

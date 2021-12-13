@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.SysUserDeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.SysUserDeptEntity">
+        <id column="link_id" property="linkId"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        link_id,dept_id,user_id
+    </sql>
+    <insert id="batchUserDeptAorU" parameterType="java.util.List">
+        insert into sys_user_dept (dept_id,user_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.deptId,jdbcType=INTEGER},
+            #{item.userId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+</mapper>

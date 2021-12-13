@@ -1,0 +1,119 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  #port: 8081
+  port: 4431  #注意，这里是https访问的的端口号
+  http:
+    port: 8081
+  #ssl:
+   # key-store: classpath:client.p12
+   # key-store-password: 12345678
+   # key-store-type: PKCS12
+   # key-alias: client
+#  port: 8088
+  ssl:
+    enabled: true
+    key-store: classpath:6553341_test.sumaokeji.com.pfx
+    key-store-password: je20aJoX
+
+
+spring:
+  profiles:
+    #active: local
+    active: aliyun
+  application:
+    name: cloud-consumer-order
+  ##thymeleaf 配置文件
+  thymeleaf:
+    suffix: .html
+    prefix: classpath:/templates/
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
+  dvetools:
+    restart:
+      enabled: true  #设置开启热部署
+      #additional-paths: src/main/java #重启目录
+      #poll-interval: 3000ms
+      #quiet-period: 2999ms
+  mail:
+    #smtp服务主机  qq邮箱则为smtp.qq.com
+    host: smtp.163.com
+    #服务协议
+    protocol: smtp
+    # 编码集
+    default-encoding: UTF-8
+    #发送邮件的账户
+    username: wjg00105@163.com
+    #授权码
+    password: LSHNHQDRKTDGXLYN
+    #项目启动 验证邮件网络
+    test-connection: false
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    port: 465
+  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
+    static-path-pattern: /static/**  #静态资源配置
+  #    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-request-size: 150MB  # 上传文件总的最大值
+      max-file-size: 150MB # 单个文件的最大值
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  activiti:
+    database-schema-update: true
+    #history-level: full
+    check-process-definitions: false
+    
+
+
+mybatis-plus:
+  #configuration:
+  #map-underscore-to-camel-case: true
+  #auto-mapping-behavior: full
+  #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*.xml
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 3
+    #机器 ID 部分(影响雪花ID)
+    workerId: 1
+    #数据标识 ID 部分(影响雪花ID)(workerId 和 datacenterId 一起配置才能重新初始化 Sequence)
+    datacenterId: 18
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+      #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector #逻辑删除配置
+
+#LSHNHQDRKTDGXLYN
+#logging:
+  #config: classpath:logging-config.xml
+config:
+  arcface-sdk:
+    app-id: 2raDGHSynBBAFaG4Mp1Wmg1SZTy4jieLRpdph5zgcyav
+    sdk-key: 4HQU3yGDesPiycKQh7M5PyTd1gq1N1oCoTddUjsW3ej6
+    thread-pool-size: 5
+    sdk-lib-path: e:/arcsoft_lib
+
+

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8"/>
+    <title>video</title>
+    <script type="text/javascript" th:src="@{/static/jsw/jsw.js}"></script>
+    <script type="text/javascript" th:src="@{/static/lib/jquery-3.4.1/jquery-3.4.1.min.js}"></script>
+
+</head>
+<body>
+<input type="button" value="登录" onclick="jswLogin()"/>
+<input type="button" value="打开视频" onclick="testOpenVideo()"/>
+<input type="button" id='id_GetUrl_Button' value="获取URL" onclick="testGetUrlVideo()"/><!--disabled="disabled"-->
+<input id="id_JustUrl_NoPlay" type='checkbox'/>只获取Url，不进行播放
+<div id="msg">未登录</div>
+<div id="id_video" style="width:500px; height:400px"></div>
+<div id="id_url_info" style="width:500px; height:200px"></div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        jSW.swInit({
+            url: "http://61.191.27.18:8081", // bv_nginx.exe服务器地址
+            //url: "https://61.191.27.18:9443", // bv_nginx.exe服务器地址
+            calltype: jSW.CallProtoType.AUTO, // AUTO: IE优先使用OCX, 如果希望IE仍然使用HTTP通信, 请使用jSW.CallProtoType.HTTP
+        });
+
+    }
+    window.onbeforeunload = function () {
+        jSW.swDeInit();
+    }
+
+    var session = null;
+
+    function jswLogin() {
+        if (session) {
+            delete session;
+        }
+        session = new jSW.SWSession({
+            server: '47.114.130.118', // 如果是jSW.CallProtoType.OCX方式，这里需要填写具体的IP
+            port: 9701,
+            onopen: function (sess) {
+                sess.swLogin({
+                    user: 'jinse',
+                    password: '123456'
+                });
+            }
+        });
+
+        // 注册事件的回调函数
+        session.swAddCallBack('login', sessionCallback);
+        //session.swAddCallBack('logout', sessionCallback);
+    }
+
+    function jswLogout() {
+        if (session) {
+            session.swLogout();
+        }
+    }
+
+    function sessionCallback(sender, event, json) {
+        var info = '';
+        if ('login' == event) {
+            info += '登录';
+        } else if ('logout' == event) {
+            info += '退出';
+        }
+
+        if (json.code == jSW.RcCode.RC_CODE_S_OK) {
+            info += '成功';
+        } else {
+            info += '失败, error code: ' + json.code;
+        }
+
+        document.getElementById('msg').innerHTML = info;// + '<br/><textarea rows="18" cols="100" readonly="readonly"> ' + JSON.stringify(json, null, 4) + '</textarea>';
+    }
+
+    function testOpenVideo() {
+        if ($("#msg").text() == "未登录") {
+            alert("请登录");
+            return;
+        }
+        var chanel = session.swGetPuChanel('PU_26223781', 0);
+        var strVideoDivId = document.getElementById('id_JustUrl_NoPlay').checked == true ? null : 'id_video';
+        if (chanel) {
+            var result = chanel.swOpenEx({
+                div: strVideoDivId,
+                prototype: 'auto', //rtmp > hls
+                callback: function (options, response) {
+                    //alert(response.emms.code + "视频打开成功，可以获取URl了");
+                    // document.getElementById('id_GetUrl_Button').disabled = 'false';
+                }
+            });
+
+            if (result != jSW.RcCode.RC_CODE_S_OK) {
+                alert('打开视频失败: ' + result);
+                //document.getElementById('id_GetUrl_Button').disabled = 'true';
+            }
+        } else {
+            alert('没有该设备通道');
+        }
+
+
+    }
+
+    function testGetUrlVideo() {
+        var chanel = session.swGetPuChanel('PU_26223781', 0);
+        var url = chanel.swGetUrl();
+        document.getElementById('id_url_info').innerHTML = JSON.stringify(url, null, 4);
+    }
+
+    $(function () {
+        setTimeout(function () {
+            jswLogin();
+        }, 1000);
+    });
+</script>

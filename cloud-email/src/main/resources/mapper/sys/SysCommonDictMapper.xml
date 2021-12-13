@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.SysCommonDictMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.SysCommonDictEntity">
+        <id column="dict_id" property="dictId"/>
+        <result column="dict_name" property="dictName"/>
+        <result column="dict_type" property="dictType"/>
+        <result column="dict_mome" property="dictMome"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="insert_uid" property="insertUid"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        dict_id
+        ,dict_name,dict_type,dict_mome,insert_time,insert_uid,update_time
+    </sql>
+
+</mapper>

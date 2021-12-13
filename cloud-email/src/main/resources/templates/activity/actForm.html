@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="shippinginfo">
+    <!--新增流程信息-->
+    <div id="setactModel" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="actModelForm" class="layui-form layui-form-pane"  lay-filter="actModelForm"  method="post" action="" style="margin-top: 20px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">流程名称</label>
+                <div class="layui-input-inline">
+                    <input id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">流程key</label>
+                <div class="layui-input-inline">
+                    <input id="key" name="key" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/><!-- onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"-->
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" lay-submit="" lay-filter="modelSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

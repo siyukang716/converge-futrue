@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="syscommondictkv">
+    <div id="syscommondictkvDiv" class="layer_self_wrap" style="display:none;">
+        <form id="syscommondictkvForm" class="layui-form layui-form-pane" lay-filter="syscommondictkvForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="dictChildId" type="hidden"><!--自增主键ID-->
+            <input  type="hidden" id="dictId" name="dictId" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">字典名称</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="dictTag" name="dictTag" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">字典编码</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="dictCode" name="dictCode" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="dictSort" name="dictSort" lay-verify="required|number"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" id="dictMemo" name="dictMemo" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <!--<input placeholder="" type="text" id="dictStatus" name="dictStatus" lay-verify="required"
+                       autocomplete="off" class="layui-input">-->
+                <div class="layui-input-block">
+                    <input type="radio" name="dictStatus" value="1" title="发布" checked="">
+                    <input type="radio" name="dictStatus" value="2" title="未发布">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="syscommondictkvSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

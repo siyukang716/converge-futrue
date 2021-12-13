@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.UploadFileConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.UploadFileConfigEntity">
+        <id column="config_id" property="configId"/>
+        <result column="windows_call" property="windowsCall"/>
+        <result column="windows_path" property="windowsPath"/>
+        <result column="linux_call" property="linuxCall"/>
+        <result column="linux_path" property="linuxPath"/>
+        <result column="business_type" property="businessType"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        config_id
+        windows_call,windows_path,linux_call,linux_path,business_type,insert_time,update_time
+    </sql>
+
+</mapper>

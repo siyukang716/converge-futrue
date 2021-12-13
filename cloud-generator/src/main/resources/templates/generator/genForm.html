@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="genNotTable">
+    <div id="genNotTableDiv" class="layer_self_wrap" style="display:none;" lay-filter="genNotTableForm" >
+        <table id="genNotTableList" lay-filter="genNotTableTable"></table>
+    </div>
+</div>
+
+
+
+<div th:fragment="previewCode">
+    <div id="previewCodeDiv" class="layer_self_wrap" style="display:none;" lay-filter="previewCodeForm" >
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">entity</li>
+                <li>controller</li>
+                <li>service</li>
+                <li>mapper</li>
+                <li>xml</li>
+                <li>list.js</li>
+                <li>list.html</li>
+                <li>form.html</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <pre> <code  id="entity"></code></pre>
+                </div>
+                <div class="layui-tab-item" >
+                    <pre><code id="controller"></code></pre>
+                </div>
+                <div class="layui-tab-item">
+                    <pre><code  id="service"></code></pre>
+                </div>
+                <div class="layui-tab-item">
+                    <pre><code  id="mapper"></code></pre>
+                </div>
+                <div class="layui-tab-item">
+                    <pre> <code  id="xml"></code></pre>
+                </div>
+                <div class="layui-tab-item">
+                    <pre><code id="listjs"></code></pre>
+                </div>
+                <div class="layui-tab-item">
+                    <pre><code id="listhtml"></code></pre>
+                </div>
+                <div class="layui-tab-item" >
+                    <pre> <code id="formhtml"></code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:fragment="genTable">
+    <div id="genTableDiv" class="layui-form layui-form-pane" lay-filter="genTableForm" >
+        <input id="tableId" name="tableId" type="hidden">
+        <div class="layui-form-item">
+            <label class="layui-form-label">表描述</label>
+            <div class="layui-input-inline">
+                <input id="tableComment" name="tableComment" autocomplete="off" class="layui-input" type="text"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成包路径</label>
+            <div class="layui-input-inline">
+                <input id="packageName" name="packageName" autocomplete="off" class="layui-input" type="text"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">作者名</label>
+            <div class="layui-input-inline">
+                <input id="functionAuthor" name="functionAuthor" autocomplete="off" class="layui-input" type="text"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-inline">
+                <input id="remark" name="remark" autocomplete="off" class="layui-input" type="text"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal  layui-btn-sm" lay-submit lay-filter="genTableSubmit">提交</button>
+                <button class="layui-btn layui-btn-normal  layui-btn-sm" onclick="history.back(-1)">返回</button>
+            </div>
+        </div>
+
+    </div>
+</div>

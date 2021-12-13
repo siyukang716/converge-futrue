@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.common.mapper.SysPubFileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.common.entity.SysPubFileEntity">
+        <id column="upfile_id" property="upfileId"/>
+        <result column="upfile_type" property="upfileType"/>
+        <result column="upfile_name" property="upfileName"/>
+        <result column="upfile_address" property="upfileAddress"/>
+        <result column="business_id" property="businessId"/>
+        <result column="business_name" property="businessName"/>
+        <result column="table_primarykey" property="tablePrimarykey"/>
+        <result column="business_tablename" property="businessTablename"/>
+        <result column="business_file_type" property="businessFileType"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_del" property="isDel"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        upfile_id
+        ,upfile_type,upfile_name,upfile_address,business_id,business_name,table_primarykey,business_tablename,business_file_type,insert_time,update_time,is_del
+    </sql>
+
+</mapper>

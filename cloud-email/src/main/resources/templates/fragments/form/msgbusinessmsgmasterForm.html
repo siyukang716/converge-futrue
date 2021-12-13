@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="msgbusinessmsgmaster">
+    <div id="msgbusinessmsgmasterDiv" class="layer_self_wrap" style="display:none;">
+        <form id="msgbusinessmsgmasterForm" class="layui-form layui-form-pane" lay-filter="msgbusinessmsgmasterForm" method="post"
+              action="" style="margin-top: 20px;">
+
+                                                <input name="msgId" type="hidden"><!--自增主键ID-->
+                                                                                                                                                                                                    
+                                                                            <div class="layui-form-item">
+                        <label class="layui-form-label">消息内容</label>
+                        <div class="layui-input-inline">
+                            <input placeholder="" type="text" id="msg content" name="msg content" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                                                                <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <div class="layui-input-inline">
+                            <input placeholder="" type="text" id="businessId" name="businessId" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                                                                <div class="layui-form-item">
+                        <label class="layui-form-label">业务路径</label>
+                        <div class="layui-input-inline">
+                            <input placeholder="" type="text" id="businessUrl" name="businessUrl" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                                                                <div class="layui-form-item">
+                        <label class="layui-form-label">业务类型/来源</label>
+                        <div class="layui-input-inline">
+                            <input placeholder="" type="text" id="businessType" name="businessType" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                                                                <div class="layui-form-item">
+                        <label class="layui-form-label">消息状态  1必读  2 非必读</label>
+                        <div class="layui-input-inline">
+                            <input placeholder="" type="text" id="msgStatus" name="msgStatus" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                                                                <div class="layui-form-item">
+                        <label class="layui-form-label">消息发布时间</label>
+                        <div class="layui-input-inline">
+                            <input placeholder="" type="text" id="msgPostTime" name="msgPostTime" lay-verify="required"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                            
+
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="msgbusinessmsgmasterSubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

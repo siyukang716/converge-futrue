@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.sys.mapper.CompPermMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.sys.entity.CompPermEntity">
+        <id column="comp_perm_id" property="compPermId"/>
+        <result column="company_id" property="companyId"/>
+        <result column="perm_id" property="permId"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="insert_uid" property="insertUid"/>
+        <result column="update_uid" property="updateUid"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        comp_perm_id
+        ,company_id,perm_id,insert_time,insert_uid,update_uid,update_time
+    </sql>
+
+</mapper>

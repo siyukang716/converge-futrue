@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.product.mapper.ProductCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.product.entity.ProductCategoryEntity">
+        <id column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="category_code" property="categoryCode"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="category_level" property="categoryLevel"/>
+        <result column="category_status" property="categoryStatus"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        category_id
+        , category_name, category_code, parent_id, category_level, category_status, modified_time
+    </sql>
+
+
+    <select id="ztree" resultType="java.util.Map">
+        SELECT a.category_id categoryId, a.parent_id parentId,
+        a.category_name as name, '' as icon,
+        if((SELECT COUNT(1) FROM product_category b WHERE b.parent_id = a.category_id) > 0,'true','false') isParent
+        FROM product_category a
+
+        <where>
+            a.parent_id = #{pId}
+
+        </where>
+        GROUP BY a.category_id
+    </select>
+
+</mapper>

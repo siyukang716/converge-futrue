@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cloud.sys.mapper.PermissionMapper">
+    <sql id="Base_Column_List">
+        id,
+        name,
+        pid,
+        zindex,
+        istype,
+        descpt,
+        code,
+        icon,
+        page,
+        insert_time,
+        update_time
+    </sql>
+    <select id="selectPermissionByUid" resultType="com.cloud.sys.PermissionEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM role_permission rp LEFT JOIN permission p ON rp.permit_id = p.id WHERE rp.role_id = #{roleid}
+    </select>
+    <select id="getUserPerms"  resultType="com.cloud.sys.PermissionEntity">
+        select
+        p.id, p.name,p.pid pId, p.zindex, p.istype, p.code, p.icon, p.page
+        from permission p
+        LEFT JOIN role_permission rp ON rp.permit_id=p.id
+        LEFT JOIN role r ON r.id=rp.role_id
+        LEFT JOIN user_role ur ON ur.role_id=r.id
+            WHERE ur.user_id=#{userId} AND p.is_del = 1
+        GROUP BY p.id
+        order by p.zindex
+    </select>
+    <select id="getMapUserPerms" resultType="java.util.Map">
+        select
+            p.id, p.name title,p.pid pId, p.zindex, p.istype, p.code, p.page href,
+            'fa fa-address-book' icon, '_self' target
+        from permission p
+                 LEFT JOIN role_permission rp ON rp.permit_id=p.id
+                 LEFT JOIN role r ON r.id=rp.role_id
+                 LEFT JOIN user_role ur ON ur.role_id=r.id
+        WHERE ur.user_id=#{userId} AND p.is_del = 1 AND p.istype != 2
+        GROUP BY p.id
+        order by p.zindex
+    </select>
+    <select id="getTermTreeBycompanyId" resultType="java.util.Map">
+        SELECT a.id, a.name,a.pId, '' as icon,
+               IF((SELECT count(*) FROM permission b WHERE b.pId = a.id  AND b.is_del = 1) >  0,'true','false')
+               as isParent FROM permission  a INNER JOIN sys_comp_perm b ON a.id = b.perm_id
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

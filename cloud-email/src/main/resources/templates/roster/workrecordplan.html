@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='排班记录'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="workrecordplanList" lay-filter="workrecordplanTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <!--<button class="layui-btn layui-btn-sm" lay-event="addworkrecord">添加</button>-->
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+        </script>
+
+        <script th:src="@{/static/roster/workrecordplan.js}"></script>
+    </div></div>
+</body>
+</html>

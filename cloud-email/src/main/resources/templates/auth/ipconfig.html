@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='系统ip配置'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form id="ipconfigForm" class="layui-form" lay-filter="ipconfigForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="ipId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">ip地址</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="ipAddress" name="ipAddress" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="ipconfigSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+        <script th:src="@{/static/js/auth/ipconfig.js}"></script>
+    </div></div>
+</body>
+</html>

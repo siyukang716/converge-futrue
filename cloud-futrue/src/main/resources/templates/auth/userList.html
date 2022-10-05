@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="layout :: htmlhead" title='用户管理'></head>
+
+<body>
+<div th:replace="layout :: ztree"></div>
+<div class="layui-row">
+    <div class="layui-col-sm2">
+        <div th:replace="common/deptTree :: deptTreeControl"></div>
+    </div>
+
+
+    <div class="layui-col-sm10">
+        <form id="userSearch" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input id="uname" name="username" autocomplete="off" class="layui-input" type="text"/>
+                </div>
+                <label class="layui-form-label">账号</label>
+                <div class="layui-input-inline">
+                    <input id="umobile" name="mobile" autocomplete="off" class="layui-input" type="text"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">添加时间</label>
+                    <div class="layui-input-inline" style="width: 175px;">
+                        <input name="insertTime" id="insertTimeStart" placeholder="yyyy-MM-dd" autocomplete="off"
+                               class="layui-input" type="text"/>
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 175px;">
+                        <input name="insertTimeEnd" id="insertTimeEnd" placeholder="yyyy-MM-dd" autocomplete="off"
+                               class="layui-input" type="text"/>
+                    </div>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="searchSubmit">提交</button>
+                </div>
+            </div>
+        </form>
+
+        <!--<hr class="layui-bg-blue"/>-->
+        <hr class="layui-bg-black"/>
+        <div style="display:none;" id="currentUser">
+            <shiro:principal property="id"></shiro:principal>
+        </div>
+
+        <table id="uesrList" lay-filter="userTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="addUser"> 开通用户</button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm"  lay-event="importUsers"> 导入职工信息</button>
+                <button class="layui-btn layui-btn-warm layui-btn-sm"  lay-event="staffTransfer"> 职工调岗</button>
+            </div>
+        </script>
+        <script type="text/html" id="jobTpl">
+            {{#  if(!d.isJob){ }}
+            <input type="checkbox" name="{{d.username}}_{{d.version}}" value="{{d.id}}" lay-skin="switch"
+                   lay-text="在职|离职" lay-filter="isJobTpl" checked="checked"/>
+            {{#  } else { }}
+            <input type="checkbox" name="{{d.username}}_{{d.version}}" value="{{d.id}}" lay-skin="switch"
+                   lay-text="在职|离职" lay-filter="isJobTpl"/>
+            {{#  } }}
+        </script>
+
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" href="/fase?userid={{d.id}}">人脸识别</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs" lay-event="perfectUserInfo">完善信息</a>
+            <a class="layui-btn layui-btn-xs" lay-event="role">角色</a>
+            <!--<a class="layui-btn layui-btn-xs" href="/customer/addr/tolist?customerId={{d.id}}">收货地址</a>-->
+           <!-- <a class="layui-btn layui-btn-xs" href="/customer/login/log/tolist?customerId={{d.id}}">登录日志</a>-->
+
+            <!--{{#  if(d.isDel == '0'){ }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="recover">恢复</a>
+            {{#  } else { }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            {{#  } }}-->
+            <button class="layui-btn layui-btn-normal layui-btn-xs " lay-event="nolockUser">解锁</button>
+        </script>
+
+
+    </div>
+
+
+    <!--添加或编辑用户-->
+    <div id="setUser" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="userForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+            <input id="pageNum" type="hidden" name="pageNum"/>
+            <input id="deptId" type="hidden" name="deptId"/>
+            <input id="roleIds" type="hidden" name="roleIds"/>
+            <input id="id" type="hidden" name="id"/>
+            <input id="version" type="hidden" name="version"/>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input id="username" name="username" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">账号</label>
+                <div class="layui-input-inline">
+                    <input id="mobile" name="mobile" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                    <input id="email" name="email" lay-verify="required|email" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input id="password" name="password" autocomplete="off" class="layui-input" type="password"
+                           placeholder="默认密码：654321"/>
+                </div>
+                <div class="layui-form-mid layui-word-aux">请填写6位以上的密码</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" lay-submit="" lay-filter="userSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--添加角色-->
+    <div id="setRole" class="layer_self_wrap" style="width:500px;display:none;">
+        <form id="roleForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
+            <input id="user_id" name="userId" type="hidden"/>
+            <input id="set_version" name="version" type="hidden"/>
+            <div class="layui-col-md4 layui-col-md-offset4">
+                <div id="regionZTree" class="ztree"
+                     style="width: 200px; height: 300px; overflow: scroll;"></div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" lay-submit="" lay-filter="roleSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+<!--    <div th:replace="auth/userinfo :: userinfo"></div>-->
+    <div th:replace="auth/form/userForm :: userImport"></div>
+    <div th:replace="common/dept_radio_Tree :: dept_radio_TreeControl" ></div>
+
+    <script th:src="@{/static/js/auth/userList.js}"></script>
+
+
+    <script type="text/javascript">
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: 'id',
+                    pIdKey: 'pId',
+                    rootPId: 0
+                }
+            }, view: {
+                showLine: false,
+                showIcon: true,
+            }, async: {
+                enable: true,
+                type: "post",
+                dataType: 'json',
+                url: '/ztree/getRole',
+                autoParam: ['id', 'pId']
+            }, callback: {}
+        };
+        $(function () {
+            $.ajax({
+                url: '/ztree/getRole',
+                data: {},
+                cache: false,
+                dataType: 'json',
+                success: function (data) {
+                    $.fn.zTree.init($("#regionZTree"), setting, data);
+                },
+                error: function (data) {
+
+                }
+            })
+        });
+    </script>
+
+</div>
+</body>
+</html>

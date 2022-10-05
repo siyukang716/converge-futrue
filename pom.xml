@@ -21,7 +21,7 @@
                 <module>xxl-job-admin</module>
                 <module>cloud-stream</module>
                 <module>cloud-stream-2</module>-->
-        <module>cloud-email</module>
+        <module>cloud-futrue</module>
         <module>cloud-generator</module>
         <!--<module>many-data-source</module>-->
     </modules>

@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @ClassName: SysCommonDictController
  * @Description: TODO(这里用一句话描述这个类的作用)公共字典
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-10-12
  */
 @Controller

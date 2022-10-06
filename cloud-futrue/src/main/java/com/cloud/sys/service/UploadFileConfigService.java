@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  *
  * @ClassName: UploadFileConfigController
  * @Description: 文件上传路径配置
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-09-23
  */
 @Service

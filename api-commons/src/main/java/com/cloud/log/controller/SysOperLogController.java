@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @ClassName: SysOperLogController
  * @Description: TODO(这里用一句话描述这个类的作用)操作日志记录
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-11-09
  */
 @Controller

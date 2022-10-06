@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  *
  * @ClassName: SysPubFileController
  * @Description: 公共文件
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-10-13
  */
 public interface SysPubFileMapper extends BaseMapper<SysPubFileEntity> {

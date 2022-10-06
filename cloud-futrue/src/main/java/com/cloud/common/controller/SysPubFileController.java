@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @ClassName: SysPubFileController
  * @Description: TODO(这里用一句话描述这个类的作用)公共文件
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-10-13
  */
 @Controller

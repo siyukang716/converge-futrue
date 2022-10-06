@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  *
  * @ClassName: DictSeqController
  * @Description: 字典序列
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-11-21
  */
 @Service

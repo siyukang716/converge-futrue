@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: CompPermController
  * @Description: TODO(这里用一句话描述这个类的作用)公司权限
  * @date 2021-11-16

@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @ClassName: MsgBusinessSubController
  * @Description: TODO(这里用一句话描述这个类的作用)消息订阅表
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-10-14
  */
 @Controller

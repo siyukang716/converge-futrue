@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: DictSeq
  * @Description: 字典序列
  * @date 2021-11-21

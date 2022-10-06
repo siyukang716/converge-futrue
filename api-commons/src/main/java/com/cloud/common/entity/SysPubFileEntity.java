@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: SysPubFile
  * @Description: 公共文件
  * @date 2021-10-13

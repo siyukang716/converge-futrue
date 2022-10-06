@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  *
  * @ClassName: SysCommonDictController
  * @Description: 公共字典
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-10-12
  */
 public interface SysCommonDictMapper extends BaseMapper<SysCommonDictEntity> {

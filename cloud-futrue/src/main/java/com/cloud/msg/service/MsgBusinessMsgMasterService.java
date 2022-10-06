@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @ClassName: MsgBusinessMsgMasterController
  * @Description: 消息模块,业务消息
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-10-14
  */
 @Service

@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: AppletsUser
  * @Description: 小程序用户表
  * @date 2021-11-13

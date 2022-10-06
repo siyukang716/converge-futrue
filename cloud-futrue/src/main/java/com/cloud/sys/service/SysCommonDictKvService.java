@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  *
  * @ClassName: SysCommonDictKvController
  * @Description: 字典管理
- * @author 小可爱
+ * @author 豆芽菜
  * @date 2021-10-12
  */
 @Service

@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: CompPerm
  * @Description: 公司权限
  * @date 2021-11-16

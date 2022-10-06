@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: SysCommonDictKvController
  * @Description: TODO(这里用一句话描述这个类的作用)字典管理
  * @date 2021-10-12

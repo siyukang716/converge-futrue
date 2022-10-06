@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: CompanyController
  * @Description: TODO(这里用一句话描述这个类的作用)公司维护
  * @date 2021-11-15

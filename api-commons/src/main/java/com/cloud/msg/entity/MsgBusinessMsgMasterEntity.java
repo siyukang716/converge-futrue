@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: MsgBusinessMsgMaster
  * @Description: 消息模块, 业务消息
  * @date 2021-10-14

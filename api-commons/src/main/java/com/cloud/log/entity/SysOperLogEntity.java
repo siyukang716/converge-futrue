@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: SysOperLog
  * @Description: 操作日志记录
  * @date 2021-11-09

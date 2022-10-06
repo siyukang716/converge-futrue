@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: SysCommonDictKv
  * @Description: 字典管理
  * @date 2021-10-12

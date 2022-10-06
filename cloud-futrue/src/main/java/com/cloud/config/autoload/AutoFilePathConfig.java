@@ -1,4 +1,4 @@
-package com.cloud.autoload;
+package com.cloud.config.autoload;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.system.OsInfo;

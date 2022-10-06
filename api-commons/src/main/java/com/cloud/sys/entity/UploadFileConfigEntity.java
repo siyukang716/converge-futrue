@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: UploadFileConfig
  * @Description: 文件上传路径配置
  * @date 2021-09-23

@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: RoleDept
  * @Description: 角色部门数据权限
  * @date 2021-11-18

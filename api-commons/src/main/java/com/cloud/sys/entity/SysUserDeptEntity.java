@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: SysUserDept
  * @Description: 部门用户关联
  * @date 2021-10-11

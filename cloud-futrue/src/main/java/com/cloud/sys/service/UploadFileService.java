@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cloud.autoload.AutoFilePathConfig;
+import com.cloud.config.autoload.AutoFilePathConfig;
 import com.cloud.sys.entity.UploadFileEntity;
 import com.cloud.sys.mapper.UploadFileMapper;
 import com.cloud.util.IStatusMessage;

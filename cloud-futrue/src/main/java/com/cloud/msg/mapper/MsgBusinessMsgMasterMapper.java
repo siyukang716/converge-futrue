@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @author 小可爱
+ * @author 豆芽菜
  * @ClassName: MsgBusinessMsgMasterController
  * @Description: 消息模块, 业务消息
  * @date 2021-10-14

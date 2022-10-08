@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" title='美容院-收银管理'></head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table id="ccashierList" lay-filter="ccashierTable"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="addccashier">添加</button>
+            </div>
+        </script>
+        <script type="text/html" id="optBar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+        <div th:replace="/cosmetology/form/ccashierForm :: ccashier"></div>
+        <script th:src="@{/static/cosmetology/ccashier.js}"></script>
+    </div>
+</div>
+</body>
+</html>

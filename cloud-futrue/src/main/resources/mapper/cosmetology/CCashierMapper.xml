@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.cosmetology.mapper.CCashierMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.cosmetology.entity.CCashierEntity">
+        <id column="cashier_id" property="cashierId"/>
+        <result column="prod_id" property="prodId"/>
+        <result column="user_id" property="userId"/>
+        <result column="staff_id" property="staffId"/>
+        <result column="royalty" property="royalty"/>
+        <result column="insert_uid" property="insertUid"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_uid" property="updateUid"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_del" property="isDel"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+                cashier_id,prod_id,user_id,staff_id,royalty,insert_uid,insert_time,update_uid,update_time,is_del
+        </sql>
+    <select id="getPageList" resultType="com.cloud.cosmetology.entity.CCashierEntity">
+    SELECT
+        cc.*,
+        cu.username,
+        cu.nick_name,
+        cp.prod_name,
+        cp.prod_amt,
+        u.username staff_name
+    FROM
+        c_cashier cc
+        LEFT JOIN c_user cu ON cc.user_id = cu.user_id
+        LEFT JOIN c_product cp ON cc.prod_id = cp.prod_id
+        LEFT JOIN `user` u ON cc.staff_id = u.id
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

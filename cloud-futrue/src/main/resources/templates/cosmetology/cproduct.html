@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<head th:include="layout :: htmlhead" title='用户管理'></head>
-<body class="layui-layout-body">
+<head th:include="layout :: htmlhead" title='美容院-商品'></head>
+<body>
 <div class="layuimini-container">
     <div class="layuimini-main">
 
-        <table id="supplierinfoList" lay-filter="supplierinfoTable"></table>
+        <table id="cproductList" lay-filter="cproductTable"></table>
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="addSupplierinfo()">添加</button>
+                <button class="layui-btn layui-btn-sm" lay-event="addcproduct">添加</button>
             </div>
         </script>
-
         <script type="text/html" id="optBar">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
-        <!--底部-->
-        <div th:replace="product/productform :: supplierinfo"></div>
-        <script th:src="@{/static/js/product/supplierinfo.js}"></script>
+        <div th:replace="cosmetology/form/cproductForm :: cproduct"></div>
+        <script th:src="@{/static/cosmetology/cproduct.js}"></script>
     </div>
 </div>
 </body>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="ccashier">
+    <div id="ccashierDiv" class="layer_self_wrap" style="display:none;">
+        <form id="ccashierForm" class="layui-form" lay-filter="ccashierForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="cashierId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">产品</label>
+                <div class="layui-input-block">
+                    <select id="prodId" name="prodId" lay-filter="trainProdChange" lay-verify="required" multiple lay-search
+                            lay-case
+                            lay-omit>
+                        <option value="">请选择产品</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">产品金额</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="prodAmt" name="prodAmt" lay-verify="number"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">客户</label>
+                <div class="layui-input-block">
+                    <select id="userId" name="userId" lay-filter="aihao" lay-verify="required" multiple lay-search
+                            lay-case
+                            lay-omit>
+                        <option value="">请选择客户</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">提成人</label>
+                <div class="layui-input-block">
+                    <select id="staffId" name="staffId" lay-filter="aihao" lay-verify="required" multiple lay-search
+                            lay-case
+                            lay-omit>
+                        <option value="">请选择提成人</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">提成金</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="royalty" name="royalty" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="ccashierSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

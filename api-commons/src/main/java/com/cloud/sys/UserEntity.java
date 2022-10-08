@@ -104,11 +104,7 @@ public class UserEntity extends Model<UserEntity> implements Serializable {
         this.insertUid = insertUid;
     }
 
-    /**
-     * 人脸信息
-     */
-    @TableField(value = "face_feature")
-    private byte[] faceFeature;
+
     /**
      * 相似度
      */

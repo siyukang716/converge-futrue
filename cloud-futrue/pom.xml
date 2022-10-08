@@ -245,7 +245,7 @@
     </dependencies>
 
     <build>
-        <finalName>cloudemail</finalName>
+        <finalName>cloudfutrue</finalName>
         <plugins>
 
             <plugin>

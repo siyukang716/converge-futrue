@@ -1,7 +1,9 @@
 package com.cloud.sys.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cloud.cosmetology.entity.CUserEntity;
 import com.cloud.shiro.ShiroUtils;
 import com.cloud.sys.UserEntity;
 import com.cloud.sys.service.UserServiceImpl;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -95,6 +98,25 @@ public class UserController {
 
         return pdr;
     }
+    /**
+     * 操作人员列表全量下拉
+     * @param entity
+     * @return
+     */
+    @GetMapping("/getUserList")
+    @ResponseBody
+    @ApiOperation(value = "操作人员列表全量下拉",httpMethod = "GET")
+    public Result getUserList(UserEntity entity) {
+        Result result = Result.getInstance();
+        LambdaQueryWrapper<UserEntity> wrapper = new QueryWrapper<UserEntity>().lambda();
+        wrapper.orderByDesc(UserEntity::getUpdateTime);
+        List<UserEntity> prodList = userService.list(wrapper);
+        result.setData(prodList);
+        return result;
+    }
+
+
+
     /**
      * 设置用户是否离职
      * @return ok/fail

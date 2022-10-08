@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="cproduct">
+    <div id="cproductDiv" class="layer_self_wrap" style="display:none;">
+        <form id="cproductForm" class="layui-form" lay-filter="cproductForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="prodId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品名称</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="prodName" name="prodName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品标题</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="prodTitle" name="prodTitle" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品描述</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="prodDesc" name="prodDesc" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品金额</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="prodAmt" name="prodAmt" lay-verify="number"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="cproductSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

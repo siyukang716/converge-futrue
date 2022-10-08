@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="cuser">
+    <div id="cuserDiv" class="layer_self_wrap" style="display:none;">
+        <form id="cuserForm" class="layui-form" lay-filter="cuserForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="userId" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="username" name="username" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">别称</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="nickName" name="nickName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="mobile" name="mobile" lay-verify="required|phone"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">生日</label>
+                <div class="layui-input-block">
+                    <input type="text" id="birthday" name="birthday" lay-verify="required|date" placeholder="yyyy-MM-dd"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="email" name="email"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">余额</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="amt" name="amt" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="cuserSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.cosmetology.mapper.CProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.cosmetology.entity.CProductEntity">
+        <id column="prod_id" property="prodId"/>
+        <result column="prod_name" property="prodName"/>
+        <result column="prod_title" property="prodTitle"/>
+        <result column="prod_desc" property="prodDesc"/>
+        <result column="prod_amt" property="prodAmt"/>
+        <result column="insert_uid" property="insertUid"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="update_uid" property="updateUid"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_del" property="isDel"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+                prod_id,prod_name,prod_title,prod_desc,prod_amt,insert_uid,insert_time,update_uid,update_time,is_del
+        </sql>
+
+</mapper>

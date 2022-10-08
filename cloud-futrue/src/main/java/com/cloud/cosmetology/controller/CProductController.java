@@ -1,5 +1,6 @@
-package ${packageName}.controller;
+package com.cloud.cosmetology.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -18,37 +19,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import ${packageName}.entity.${entityName}Entity;
-import ${packageName}.service.${serviceName};
-#foreach($field in ${columns})
-    #if($field.isPk.equals("1"))##生成主键排在第一位
-        #set ( $primarykey = "${field.javaField}" )
-    #end
-#end
+import com.cloud.cosmetology.entity.CProductEntity;
+import com.cloud.cosmetology.service.CProductService;
+
+import java.util.List;
 
 /**
  *
- * @ClassName: ${controllerName}
- * @Description: TODO(这里用一句话描述这个类的作用)${table.tableComment}
- * @author ${author}
- * @date ${date}
+ * @ClassName: CProductController
+ * @Description: TODO(这里用一句话描述这个类的作用)美容院-商品
+ * @author 豆芽菜
+ * @date 2022-10-06
  */
 @Controller
-@Api(value = "${table.tableComment}crud功能",tags = "${table.tableComment}")
-@RequestMapping(value ="${table.tableName}")
-public class ${controllerName}  {
+@Api(value = "美容院-商品crud功能",tags = "美容院-商品")
+@RequestMapping(value ="c/product")
+public class CProductController  {
     @Autowired
-    private ${serviceName} ${serviceName.substring(0, 1).toLowerCase()}${serviceName.substring(1)};
-    /*
+    private CProductService cProductService;
+
     @GetMapping("/tolist")
     public ModelAndView toList() {
         ModelAndView model = new ModelAndView();
-        model.setViewName("");
+        model.setViewName("cosmetology/cproduct");
         return model;
     }
-    */
+
     /**
-     * ${table.tableComment}-列表查询
+     * 列表查询
      * @param p
      * @return
      */
@@ -57,8 +55,8 @@ public class ${controllerName}  {
     @ApiOperation(value = "列表查询",httpMethod = "GET")
     public PageDataResult getPageList(Page p) {
         PageDataResult pdr = new PageDataResult();
-        QueryWrapper<${entityName}Entity> wrapper = new QueryWrapper<${entityName}Entity>();
-        IPage<${entityName}Entity> page = ${serviceName.substring(0, 1).toLowerCase()}${serviceName.substring(1)}.page(p,wrapper);
+        QueryWrapper<CProductEntity> wrapper = new QueryWrapper<CProductEntity>();
+        IPage<CProductEntity> page = cProductService.page(p,wrapper);
         pdr.setTotals((int)page.getTotal());
         pdr.setList(page.getRecords());
         return pdr;
@@ -66,16 +64,34 @@ public class ${controllerName}  {
 
 
     /**
-     * ${table.tableComment}-增加或修改
+     * 产品列表全量下拉
+     * @param entity
+     * @return
+     */
+    @GetMapping("/getProdList")
+    @ResponseBody
+    @ApiOperation(value = "产品列表全量下拉",httpMethod = "GET")
+    public Result getProdList(CProductEntity entity) {
+        Result result = Result.getInstance();
+        LambdaQueryWrapper<CProductEntity> wrapper = new QueryWrapper<CProductEntity>().lambda();
+        wrapper.orderByDesc(CProductEntity::getUpdateTime);
+        List<CProductEntity> prodList = cProductService.list(wrapper);
+        result.setData(prodList);
+        return result;
+    }
+
+
+    /**
+     * 增加或修改
      * @param
      * @return
      */
     @PostMapping("/aOrU")
     @ResponseBody
     @ApiOperation(value = "新增修改接口", notes = "新增修改接口")
-    public Result aOrU(${entityName}Entity entity) {
+    public Result aOrU(CProductEntity entity) {
         Result result = Result.getInstance();
-        boolean b = ${serviceName.substring(0, 1).toLowerCase()}${serviceName.substring(1)}.saveOrUpdate(entity);
+        boolean b = cProductService.saveOrUpdate(entity);
         result.setStatus(IStatusMessage.SystemStatus.SUCCESS.getCode());
         result.setMessage("操作成功!!!");
         if (!b) {
@@ -86,16 +102,16 @@ public class ${controllerName}  {
     }
 
     /**
-     * ${table.tableComment}-删除
+     * 删除
      * @param
      * @return
      */
     @GetMapping("/del")
     @ResponseBody
     @ApiOperation(value = "删除接口", notes = "删除接口")
-    public Result del(Long $primarykey) {
+    public Result del(Long prodId) {
         Result result = Result.getInstance();
-        boolean b = ${serviceName.substring(0, 1).toLowerCase()}${serviceName.substring(1)}.removeById($primarykey);
+        boolean b = cProductService.removeById(prodId);
         result.setStatus(IStatusMessage.SystemStatus.SUCCESS.getCode());
         result.setMessage("删除成功!!!!!!");
         if (!b) {
@@ -108,9 +124,9 @@ public class ${controllerName}  {
     @GetMapping("/getById")
     @ResponseBody
     @ApiOperation(value = "根据主键查询对象接口", notes = "根据主键查询对象接口")
-    public Result getById(Long $primarykey) {
+    public Result getById(Long prodId) {
         Result result = Result.getInstance();
-        ${entityName}Entity obj = ${serviceName.substring(0, 1).toLowerCase()}${serviceName.substring(1)}.getById($primarykey);
+        CProductEntity obj = cProductService.getById(prodId);
         result.setData(obj);
         result.setStatus(IStatusMessage.SystemStatus.SUCCESS.getCode());
         result.setMessage("获取成功!!!!!!");

@@ -62,15 +62,6 @@ public class CCashierEntity extends Model<CCashierEntity> implements Serializabl
     @ApiModelProperty(value = "收益ID")
     private Long staffId;
 
-
-    /**
-     * 提成人名称
-     */
-    @TableField(exist = false)
-    @ApiModelProperty(value = "提成人名称")
-    private String staffName;
-
-
     /**
      * 提成金
      */
@@ -78,15 +69,59 @@ public class CCashierEntity extends Model<CCashierEntity> implements Serializabl
     @ApiModelProperty(value = "提成金")
     private BigDecimal royalty;
 
-    /***/
+    /****************************************************************************/
+
+    /**
+     * 顾客名称
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "用户名")
+    private String username;
+    /**
+     * 提成人名称
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "提成人名称")
+    private String staffName;
+
+    /**
+     * 别称
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "别称")
+    private String nickName;
+
+
+    /**
+     * 商品名称
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "商品名称")
+    private String prodName;
+
+
+    /**
+     * 商品标题
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "商品标题")
+    private String prodTitle;
+
+
+    /**
+     * 商品描述
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "商品描述")
+    private String prodDesc;
+
+
     /**
      * 商品金额
      */
     @TableField(exist = false)
     @ApiModelProperty(value = "商品金额")
     private BigDecimal prodAmt;
-
-
 
 
     /**

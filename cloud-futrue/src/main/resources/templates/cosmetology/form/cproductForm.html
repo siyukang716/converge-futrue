@@ -10,29 +10,30 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品名称</label>
                 <div class="layui-input-block">
-                    <input placeholder="" type="text" id="prodName" name="prodName" lay-verify="required"
+                    <input placeholder="请输入商品名称" type="text" id="prodName" name="prodName" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">商品标题</label>
                 <div class="layui-input-block">
-                    <input placeholder="" type="text" id="prodTitle" name="prodTitle" lay-verify="required"
+                    <input placeholder="请输入商品标题" type="text" id="prodTitle" name="prodTitle" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">商品描述</label>
                 <div class="layui-input-block">
-                    <input placeholder="" type="text" id="prodDesc" name="prodDesc" lay-verify="required"
-                           autocomplete="off" class="layui-input">
+                    <textarea placeholder="请输入商品描述" id="prodDesc" name="prodDesc" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">商品金额</label>
                 <div class="layui-input-block">
-                    <input placeholder="" type="text" id="prodAmt" name="prodAmt" lay-verify="number"
-                           autocomplete="off" class="layui-input">
+                    <input placeholder="请输入商品金额" type="text" id="prodAmt" name="prodAmt" lay-verify="number"
+                           autocomplete="off" class="layui-input"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
                 </div>
             </div>
             <div class="layui-form-item">

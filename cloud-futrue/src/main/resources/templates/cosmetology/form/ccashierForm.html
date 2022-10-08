@@ -26,8 +26,9 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">客户</label>
+                <input id="amt" name="amt" type="text"><!--顾客余额-->
                 <div class="layui-input-block">
-                    <select id="userId" name="userId" lay-filter="aihao" lay-verify="required" multiple lay-search
+                    <select id="userId" name="userId" lay-filter="userIdChange" lay-verify="required" multiple lay-search
                             lay-case
                             lay-omit>
                         <option value="">请选择客户</option>
@@ -37,7 +38,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">提成人</label>
                 <div class="layui-input-block">
-                    <select id="staffId" name="staffId" lay-filter="aihao" lay-verify="required" multiple lay-search
+                    <select id="staffId" name="staffId" lay-filter="staffIdChange" lay-verify="required" multiple lay-search
                             lay-case
                             lay-omit>
                         <option value="">请选择提成人</option>

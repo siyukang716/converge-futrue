@@ -1,5 +1,177 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="user">
+    <div id="userDiv" class="layer_self_wrap" style="display:none;">
+        <form id="userForm" class="layui-form" lay-filter="userForm" method="post"
+              action="" style="margin-top: 20px;">
+
+            <input name="id" type="hidden"><!--自增主键ID-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="username" name="username" lay-verify="required" readonly
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="email" name="email" lay-verify="required" readonly
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="mobile" name="mobile" lay-verify="required" readonly
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="password" name="password" lay-verify="required" readonly
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户真实姓名</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="customerName" name="customerName" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">提成率</label>
+                <div class="layui-input-block">
+                    <input placeholder="%" type="text" id="commissionRate" name="commissionRate" lay-verify="required"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">证件类型</label>
+                <div class="layui-input-block">
+                    <select name="identityCardType">
+                        <option value=""></option>
+                        <option value="1">身份证</option>
+                        <option value="2">军官证</option>
+                        <option value="3">护照</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">证件号码</label>
+                <div class="layui-input-inline">
+                    <input placeholder="" type="text" name="identityCardNo"
+                           lay-verify="identity" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">例如:150221200001055015</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="gender" value="男" title="男">
+                    <input type="radio" name="gender" value="女" title="女" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">生日</label>
+                <div class="layui-input-block">
+                    <input type="text" name="birthday" id="birthday" placeholder="yyyy-MM-dd" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄</label>
+                <div class="layui-input-block">
+                    <input type="text" name="age" id="age" autocomplete="off" class="layui-input"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                           lay-verify="required|number">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">职位</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="position" name="position" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">入职时间</label>
+                <div class="layui-input-block">
+                    <input placeholder="" type="text" id="entryTime" name="entryTime" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="userSubmit">立即提交</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<!--添加或编辑用户-->
+<div th:fragment="setUser">
+    <div id="setUserDiv" class="layer_self_wrap" style="display:none;">
+        <form id="setUserForm" class="layui-form" lay-filter="setUserForm" method="post" action=""
+              style="margin-top: 20px;">
+            <input id="id" type="hidden" name="id"/>
+            <input id="pageNum" type="hidden" name="pageNum"/>
+            <input id="deptId" type="hidden" name="deptId"/>
+            <input id="roleIds" type="hidden" name="roleIds"/>
+            <input id="version" type="hidden" name="version"/>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input id="username" name="username" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">账号</label>
+                <div class="layui-input-inline">
+                    <input id="mobile" name="mobile" lay-verify="required" autocomplete="off" class="layui-input"
+                           type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                    <input id="email" name="email" lay-verify="required|email" autocomplete="off" class="layui-input"
+                           type="text"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input id="password" name="password" autocomplete="off" class="layui-input" type="password"
+                           placeholder="默认密码：654321"/>
+                </div>
+                <div class="layui-form-mid layui-word-aux">请填写6位以上的密码</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn" lay-submit="" lay-filter="userSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <div th:fragment="userImport">
     <div id="userImportDiv" class="layer_self_wrap" style="display:none;">
         <form id="userImportForm" class="layui-form" lay-filter="userImportForm" method="post"
@@ -7,7 +179,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">模板</label>
                 <div class="layui-input-block">
-                    <a href="/user/importTemplate" class="layui-btn layui-btn-normal" >下载导入模板</a>
+                    <a href="/user/importTemplate" class="layui-btn layui-btn-normal">下载导入模板</a>
                 </div>
             </div>
             <div class="layui-form-item">

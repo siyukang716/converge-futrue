@@ -3,72 +3,72 @@
  */
 var pageCurr;
 var tableIns;
+var control = 'user'
+fromId = control+'Form',
+    divId = control + "Div",
+    baseUrl = '/user/',
+    aOrUUrl = baseUrl + 'aOrU',
+    delUrl = baseUrl + 'del',
+    getUrl = baseUrl + 'getUser',
+    listUrl = baseUrl + 'getPageList',
+    menuTitle = '用户表';
+
+
+
 $(function () {
-    layui.use(['table','upload', 'laydate', 'util'], function () {
+    layui.use(['table', 'upload', 'laydate', 'util'], function () {
         var table = layui.table;
         var laydate = layui.laydate;
         var upload = layui.upload;
         var form = layui.form;
-            tableIns = table.render({
-                elem: '#uesrList'
-                , id: 'uesrListReload'
-                , url: '/user/getPageList'
-                //, method: 'get' //默认：get请求
-                , cellMinWidth: 80
-                , toolbar: '#toolbarDemo'
-                , defaultToolbar: ['filter', 'print', 'exports']
-                , page: true
-                , skin: 'line'
-                , even: true
-                , height: 'full-100'
-                , request: {
-                    pageName: 'current' //页码的参数名称，默认：page
-                    , limitName: 'size' //每页数据量的参数名，默认：limit
-                }, response: {
-                    statusName: 'code' //数据状态的字段名称，默认：code
-                    , statusCode: 200 //成功的状态码，默认：0
-                    , countName: 'totals' //数据总数的字段名称，默认：count
-                    , dataName: 'list' //数据列表的字段名称，默认：data
-                    , msgName: 'message'
-                }
-                , cols: [[
-                    {type: 'numbers'}
-                    , {type: 'checkbox'}
-                    , {field: 'id', title: 'ID', width: 180, hide: true}
-                    , {field: 'username', title: '用户名'}
-                    , {field: 'mobile', title: '账号'}
-                    , {field: 'email', title: '邮箱'}
-                    , {field: 'roleName', title: '角色名称', minWidth: 80}
-                    , {
-                        field: 'insertTime',
-                        title: '添加时间',
-                        templet: "<div>{{layui.util.toDateString(d.insertTime, 'yyyy-MM-dd')}}</div>"
-                    }
-                    , {field: 'isJob', title: '是否在职', width: 95, align: 'center', templet: '#jobTpl'}
-                    , {fixed: 'right', title: '操作', width: 500, align: 'center', toolbar: '#optBar'}
-                ]]
-                , done: function (res, curr, count) {
-                    //如果是异步请求数据方式，res即为你接口返回的信息。
-                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                    //console.log(res);
-                    //得到当前页码
-                    //console.log(curr);
-                    //得到数据总量
-                    //console.log(count);
-                    //$("[data-field='id']").css('display', 'none');
-                    pageCurr = curr;
-                }
-            });
 
+        tableIns = table.render({
+            elem: '#uesrList'
+            , id: 'uesrListReload'
+            , url: listUrl
+            //, method: 'get' //默认：get请求
+            , cellMinWidth: 80
+            , toolbar: '#toolbarDemo'
+            , defaultToolbar: ['filter', 'print', 'exports']
+            , page: true
+            , skin: 'line'
+            , even: true
+            , height: 'full-100'
+            , request: {
+                pageName: 'current' //页码的参数名称，默认：page
+                , limitName: 'size' //每页数据量的参数名，默认：limit
+            }, response: {
+                statusName: 'code' //数据状态的字段名称，默认：code
+                , statusCode: 200 //成功的状态码，默认：0
+                , countName: 'totals' //数据总数的字段名称，默认：count
+                , dataName: 'list' //数据列表的字段名称，默认：data
+                , msgName: 'message'
+            }
+            , cols: [[
+                {type: 'numbers'}
+                , {type: 'checkbox'}
+                , {field: 'id', title: 'ID', width: 180, hide: true}
+                , {field: 'username', title: '用户名'}
+                , {field: 'mobile', title: '账号'}
+                , {field: 'email', title: '邮箱'}
+                , {field: 'entryTime', title: '入职时间'}
+                , {field: 'insertTime', title: '添加时间'}
+                , {field: 'isJob', title: '是否在职', width: 95, align: 'center', templet: '#jobTpl'}
+                , {fixed: 'right', title: '操作', width: 300, align: 'center', toolbar: '#optBar'}
+            ]]
+            , done: function (res, curr, count) {
+                pageCurr = curr;
+            }
+        });
 
         var $ = layui.$, active = {
-            reload: function(obj){
+            reload: function (obj) {
                 //执行重载
                 table.reload('uesrListReload', {
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }
-                    ,where: obj
+                    , where: obj
                 });
             }
         };
@@ -86,10 +86,10 @@ $(function () {
             if (obj.event === 'addUser') {
                 //完善用户信息
                 addUser();
-            }else if (obj.event === 'importUsers') {
+            } else if (obj.event === 'importUsers') {
                 //导入用户信息
                 importUsers();
-            }else if (obj.event === 'staffTransfer') {
+            } else if (obj.event === 'staffTransfer') {
                 //职工调岗
                 staffTransfer();
             }
@@ -101,17 +101,15 @@ $(function () {
                 delUser(data, data.id, data.username);
             } else if (obj.event === 'edit') {
                 //编辑
-                getUser(data, data.id);
-            } else if (obj.event === 'recover') {
-                //恢复
-                recoverUser(data, data.id);
+                updUser(data, data.id);
             } else if (obj.event === 'nolockUser') {
-                //恢复
+                //解锁
                 nolockUser(data, data.id);
             } else if (obj.event === 'perfectUserInfo') {
                 //完善用户信息
                 perfectUserInfo(data, data.id);
             } else if (obj.event === 'role') {
+                //角色
                 $("#user_id").val(data.id == null ? '' : data.id);
                 $("#set_version").val(data.version == null ? '' : data.version);
                 layer.open({
@@ -135,24 +133,20 @@ $(function () {
         });
         //监听提交
         form.on('submit(userSubmit)', function (data) {
-            // TODO 校验
-            formSubmit(data);
-            return false;
-        });
-        form.on('submit(roleSubmit)', function (data) {
-            // TODO 校验
-            roleformSubmit(data);
+            formSubmit(data.field);
             return false;
         });
         //用户信息表补全
         form.on('submit(userinfoSubmit)', function (data) {
-            // TODO 校验
-            userinfoSubmit(data);
+            formSubmit(data);
             return false;
         });
-        //搜索框
-        var form = layui.form, layer = layui.layer
-            , laydate = layui.laydate;
+
+        form.on('submit(roleSubmit)', function (data) {
+            roleformSubmit(data);
+            return false;
+        });
+
         //日期
         laydate.render({
             elem: '#insertTimeStart'
@@ -162,32 +156,23 @@ $(function () {
         });
         laydate.render({
             elem: '#entryTime'
-            //,type: 'datetime'
         });
         laydate.render({
             elem: '#birthday'
-            //,type: 'datetime'
+            ,type: 'datetime'
+
         });
-        //TODO 数据校验
+
         //监听搜索框
         form.on('submit(searchSubmit)', function (data) {
-            //重新加载table
-            //loadUserList1(data);
-            //active['reload'].call(null,data.field);
             loadUserList(data.field);
             return false;
         });
-
-
-
-
-
 
         upload.render({
             elem: '#importUserDataFile'
             , url: "/user/importData" //此处配置你自己的上传接口即可
             , auto: true
-            //, data: {"updateSupport": false,"basicId":$("#reqbasicId").val()}
             , accept: 'file'
             , done: function (res) {
                 layer.closeAll(); //疯狂模式，关闭所有层
@@ -196,13 +181,8 @@ $(function () {
                 layer.msg(res.message);
 
             }
-
         });
-
     });
-
-
-
 });
 
 //设置用户是否离职
@@ -232,6 +212,7 @@ function setJobUser(obj, id, nameVersion, checked) {
 
 //提交表单
 function formSubmit(obj) {
+    debugger
     var currentUser = $("#currentUser").html();
     if ($("#id").val() == currentUser) {
         layer.confirm('更新自己的信息后，需要您重新登录才能生效；您确定要更新么？', {
@@ -285,7 +266,7 @@ function roleformSubmit(data) {
 function submitAjax(obj, currentUser) {
     $.ajax({
         type: "POST",
-        data: $("#userForm").serialize(),
+        data: obj,
         url: "/user/setUser",
         success: function (data) {
             layer.alert(data.message, function () {
@@ -312,76 +293,42 @@ function submitAjax(obj, currentUser) {
     });
 }
 
-
-//开通用户
+//------------------开通用户---------------------
 function addUser() {
-    openUser(null, "开通用户",'add');
+    $("#id").val("");
+    var zTreeOjb = $.fn.zTree.getZTreeObj("deptZTreeInstance");
+    var selectedNodes = zTreeOjb.getSelectedNodes();
+    if (selectedNodes == null || selectedNodes.length == 0) {
+        console.log("未选中左边部门节点");
+        layer.msg('未选中左边部门节点', {icon: 6});
+        return;
+    } else {
+        $("#deptId").val(selectedNodes[0].dept_id);
+    }
+    openForm('setUserDiv','setUserForm','开通用户');
     $("#mobile").prop('readonly', '');
 }
 
-function openUser(id, title,flag) {
-    if (id == null || id == "") {
-        $("#id").val("");
-    }
-    var zTreeOjb = $.fn.zTree.getZTreeObj("deptZTreeInstance");
-    var selectedNodes = zTreeOjb.getSelectedNodes();
-//    debugger;
-    if(flag != null && flag == 'add'){
-        if(selectedNodes == null || selectedNodes.length == 0){
-        console.log("未选中左边部门节点");
-          layer.msg('未选中左边部门节点', {icon: 6});
-        return ;
-        }else{
-           $("#deptId").val(selectedNodes[0].dept_id);
-        }
-    }
-    layer.open({
-        type: 1,
-        title: title,
-        fixed: false,
-        resize: false,
-        //shadeClose: true,
-        area: ['550px'],
-        content: $('#setUser'),
-        end: function () {
-            cleanUser();
-        }
-        , cancel: function (index, layero) {
-            layer.close(index)
-            $("#setUser").hide();
-            return false;
-        }
-    });
-}
-
-function getUser(obj, id) {
+//------------------修改用户---------------------
+function updUser(obj, id) {
     //如果已经离职，提醒不可编辑和删除
-    if (obj.job) {
+    if (obj.isJob == 1) {
         layer.alert("该用户已经离职，不可进行编辑；</br>  如需编辑，请设置为<font style='font-weight:bold;' color='green'>在职</font>状态。");
-    } else if (obj.del) {
+    } else if (obj.jsDel == 1) {
         layer.alert("该用户已经删除，不可进行编辑；</br>  如需编辑，请先<font style='font-weight:bold;' color='blue'>恢复</font>用户状态。");
     } else {
-        //回显数据
-        $.get("/user/getUser", {"id": id}, function (data) {
-            if (data.status == "1000" && data.data != null) {
-                $("#id").val(data.data.id == null ? '' : data.data.id);
-                $("#version").val(data.data.version == null ? '' : data.data.version);
-                $("#username").val(data.data.username == null ? '' : data.data.username);
-                $("#mobile").val(data.data.mobile == null ? '' : data.data.mobile);
-                $("#email").val(data.data.email == null ? '' : data.data.email);
-
-                openUser(id, "设置用户",'upd');
-                $("#mobile").prop('readonly', 'readonly');
-            } else {
-                //弹出错误提示
-                layer.alert(data.message, function () {
-                    layer.closeAll();
-                });
-            }
-        });
+        getData(getUrl,{"id": id},attrUserInfo);
     }
 }
+function attrUserInfo(data) {
+    if (data.status != "1000") {
+        layer.msg(data.message);
+    }
+    openForm("setUserDiv", 'setUserForm', "修改");
+    formAssignment('setUserForm', data.data);
+}
 
+//------------------删除用户---------------------
 function delUser(obj, id, name) {
     if (null != id) {
         layer.confirm('您确定要删除' + name + '用户吗？', {
@@ -394,13 +341,13 @@ function delUser(obj, id, name) {
                         layer.alert("删除成功！", function () {
                             layer.closeAll();
                             //加载load方法
-                            loadUserList(obj);//自定义
+                            loadUserList({});
                         });
                     } else {
                         layer.alert(data, function () {
                             layer.closeAll();
                             //加载load方法
-                            loadUserList(null);//自定义
+                            loadUserList({});//自定义
                         });
                     }
                 }
@@ -411,9 +358,8 @@ function delUser(obj, id, name) {
     }
 }
 
+//------------------恢复用户---------------------
 function recoverUser(obj, id) {
-    //console.log("需要恢复的用户id="+id);
-
     if (null != id) {
         layer.confirm('您确定要恢复' + name + '用户吗？', {
             btn: ['确认', '返回'] //按钮
@@ -425,13 +371,13 @@ function recoverUser(obj, id) {
                         layer.alert("恢复成功！", function () {
                             layer.closeAll();
                             //加载load方法
-                            loadUserList(obj);//自定义
+                            loadUserList({});//自定义
                         });
                     } else {
                         layer.alert(data, function () {
                             layer.closeAll();
                             //加载load方法
-                            loadUserList(null);//自定义
+                            loadUserList({});//自定义
                         });
                     }
                 }
@@ -442,18 +388,19 @@ function recoverUser(obj, id) {
     }
 }
 
-//解锁用户
-function nolockUser(data,id) {
-    getData('/user/unlockAccount',{'username':data.mobile},nolockUserCall)
+//------------------解锁用户---------------------
+function nolockUser(data, id) {
+    getData('/user/unlockAccount', {'username': data.mobile}, nolockUserCall)
 }
 function nolockUserCall(data) {
-    if (data.status == '1000'){
-        layer.msg(data.message=='' || data.message == null || data.message==undefined?"操作成功":data.message, {icon: 6});
-    }else {
-        layer.msg(data.message=='' || data.message == null || data.message==undefined?"操作失败":data.message, {icon: 5});
+    if (data.status == '1000') {
+        layer.msg(data.message == '' || data.message == null || data.message == undefined ? "操作成功" : data.message, {icon: 6});
+    } else {
+        layer.msg(data.message == '' || data.message == null || data.message == undefined ? "操作失败" : data.message, {icon: 5});
     }
 }
 
+//------------------清空---------------------
 function cleanUser() {
     //$("#id").val("");
     $("#username").val("");
@@ -463,53 +410,18 @@ function cleanUser() {
 }
 
 
-//------------------用户信息---------------------
-//完善用户信息
+//------------------完善用户信息---------------------
 function perfectUserInfo(data, id) {
-    formAssignment('userinfoForm', {'customerId': id, "userMoney": 0, "userPoint": 0});
-    echoForm("/customer/inf/getById", {'customerId': id}, "userinfoForm", "GET");
-
+    echoForm(getUrl,{'id':data.id},fromId,'GET');
 }
-
 function echoFormCallback(data, formId) {
-    openForm("userinfoDiv", formId, "完善用户信息");
+    openForm("userDiv", formId, "完善用户信息");
     formAssignment(formId, data.data);
 }
 
 
-function userinfoSubmit() {
-    $.ajax({
-        type: "POST",
-        data: $("#userinfoForm").serialize(),
-        url: "/customer/inf/aOrU",
-        success: function (data) {
-            layer.alert(data.message, function () {
-                layer.closeAll();
-                $("#userinfoDiv").hide();
-            });
-        },
-        error: function () {
-            layer.alert("操作请求错误，请您稍后再试", function () {
-                layer.closeAll();
-                //加载load方法
-                loadUserList({});//自定义
-            });
-        }
-    });
-}
 
 function loadUserList(obj) {
-    // layui.use([], function () {
-    //     var loadtable = layui.table;
-    //     //重新加载table
-    //     loadtable.reload('uesrListReload', {
-    //         where: obj
-    //         , page: {
-    //             curr: pageCurr //从当前页码开始
-    //         }
-    //     });
-    // });
-
     tableIns.reload({
         where: obj
         , page: {
@@ -518,6 +430,7 @@ function loadUserList(obj) {
     });
 
 }
+
 function deptZTreeInstanceOnClickCall(event, treeId, treeNode, clickFlag) {
     loadUserList({'deptid': treeNode.dept_id});
     //active['reload'].call(null,{'deptid': treeNode.dept_id})
@@ -526,29 +439,30 @@ function deptZTreeInstanceOnClickCall(event, treeId, treeNode, clickFlag) {
 /**
  * 导入职工信息
  */
-function importUsers(){
+function importUsers() {
     openForm('userImportDiv', '', '导入职工信息');
 }
 
 /**
  * 职工调岗
  */
-function staffTransfer(){
+function staffTransfer() {
     var checkStatus = layui.table.checkStatus('uesrListReload');
     var data = checkStatus.data;
-    if (data.length < 1){
+    if (data.length < 1) {
         layer.msg("请选择需要调岗人员", {icon: 5});
-    }else {
+    } else {
         openForm('common_dept_radio_TreeDiv', '', '单选部门组件');
     }
 };
-function staffTransferCall(data){
-    if (data.status == '1000'){
+
+function staffTransferCall(data) {
+    if (data.status == '1000') {
         layer.closeAll();
         $("#common_dept_radio_TreeDiv").hide();
-        loadUserList();
-        layer.msg(data.message=='' || data.message == null || data.message==undefined?"操作成功":data.message, {icon: 6});
-    }else {
+        loadUserList({});
+        layer.msg(data.message == '' || data.message == null || data.message == undefined ? "操作成功" : data.message, {icon: 6});
+    } else {
         layer.msg(data.message, {icon: 5});
     }
 }
@@ -560,5 +474,5 @@ function dept_radio_Tree_submit_CallBack(node) {
         return obj.id;
     }).join(",");
     var deptid = node.dept_id;
-    ajaxPostData("/system/user/staffTransfer",{'userIds':ids,'deptid':deptid},staffTransferCall)
+    ajaxPostData("/system/user/staffTransfer", {'userIds': ids, 'deptid': deptid}, staffTransferCall)
 }

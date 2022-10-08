@@ -32,54 +32,48 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> {
 
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private SysUserDeptMapper sysUserDeptMapper;
-    @Autowired
     @Lazy
-    private  SysDeptService deptService;
-    @Transactional(rollbackFor = Exception.class)
-    public Result setUser( UserEntity user){
-        Result result = Result.getInstance();
-        user.setCompanyId(ShiroUtils.getLoginUser().getCompanyId());
-        result.setStatus(IStatusMessage.SystemStatus.SUCCESS.getCode());
-        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-        if (user.getId() == null){
-            if (user.getDeptId() == null){
-                result.setStatus(IStatusMessage.SystemStatus.PARAM_ERROR.getCode());
-                result.setMessage("部门ID不能为空");
-                return result;
-            }
-            LambdaQueryWrapper<UserEntity> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(UserEntity::getMobile,user.getMobile());
-            UserEntity userEntity = user.selectOne(wrapper);
-            if (userEntity != null){
-                result.setMessage("用户名重复o(╥﹏╥)o");
-                return result;
-            }else {
-                //修改成返回主键ID
-                user.insert();
-                result.setMessage("操作成功");
-                UserEntity userInfo = user.selectOne(wrapper);
-                SysUserDeptEntity userDeptEntity = new SysUserDeptEntity();
-                userDeptEntity.setUserId(userInfo.getId());
-                userDeptEntity.setDeptId(user.getDeptId());
-                sysUserDeptMapper.batchUserDeptAorU(Arrays.asList(userDeptEntity));
-                result.setStatus(IStatusMessage.SystemStatus.SUCCESS.getCode());
-                return result;
-            }
+    private SysDeptService deptService;
 
-        }else {
+    @Transactional(rollbackFor = Exception.class)
+    public Result setUser(UserEntity user) {
+        Result result = Result.success();
+        if (Objects.isNull(user.getId())) {
+            if (Objects.isNull(user.getDeptId())) {
+                return new Result(IStatusMessage.SystemStatus.PARAM_ERROR.getCode(), "部门ID不能为空");
+            }
+            user.setCompanyId(ShiroUtils.getLoginUser().getCompanyId());
+            log.debug("[setUser]-密码:"+user.getPassword());
+            //log.debug("[setUser]-密码:"+DigestUtils.md5Hex(user.getPassword()));
+            //user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+            LambdaQueryWrapper<UserEntity> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(UserEntity::getMobile, user.getMobile());
+            UserEntity userInfo = user.selectOne(wrapper);
+            if (Objects.nonNull(userInfo)) {
+                return new Result(IStatusMessage.SystemStatus.PARAM_ERROR.getCode(), "用户名重复o(╥﹏╥)o");
+            }
+            //修改成返回主键ID
+            user.insert();
+            result.setMessage("操作成功");
+            UserEntity newUserInfo = user.selectOne(wrapper);
+            SysUserDeptEntity userDeptEntity = new SysUserDeptEntity();
+            userDeptEntity.setUserId(newUserInfo.getId());
+            userDeptEntity.setDeptId(user.getDeptId());
+            userDeptEntity.insert();
+            return result;
+        } else {
             userMapper.updateById(user);
             result.setMessage("修改成功");
         }
         // 如果是自己，修改完成之后，直接退出；重新登录
         UserEntity adminUser = ShiroUtils.getLoginUser();
-        if (adminUser != null && adminUser.getId() == user.getId()){
-            //logger.debug("更新自己的信息，退出重新登录！adminUser=" + adminUser);
+        if (adminUser != null && adminUser.getId() == user.getId()) {
+            log.debug("更新自己的信息，退出重新登录！adminUser=" + adminUser);
             SecurityUtils.getSubject().logout();
         }
         return result;
@@ -100,16 +94,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
 
     /**
      * 自定义查询对象
+     *
      * @return
      */
     public Page<UserEntity> listUsers(Page<UserEntity> p, QueryWrapper<UserEntity> wrapper) {
 
-        return userMapper.listUsers(p,wrapper);
+        return userMapper.listUsers(p, wrapper);
     }
 
     /**
      * 恢复用户
      * 自定义方法恢复 ，因为mybatis-plus 设置逻辑删除 需自定义
+     *
      * @param id
      */
     public void recoverUser(Long id) {
@@ -119,12 +115,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
 
     /**
      * 更加用户id集合获取用户信息 返回map格式数据
+     *
      * @param coll
      * @return
      */
-    public Map<Long, UserEntity> getUsersByIdsIn(Collection<?> coll){
+    public Map<Long, UserEntity> getUsersByIdsIn(Collection<?> coll) {
         LambdaQueryWrapper<UserEntity> wrapper = new QueryWrapper<UserEntity>().lambda();
-        wrapper.in(UserEntity::getId,coll);
+        wrapper.in(UserEntity::getId, coll);
         List<UserEntity> list = list(wrapper);
         Map<Long, UserEntity> mapUser = list.stream().collect(Collectors.toMap(UserEntity::getId, a -> a, (k1, k2) -> k1));
         return mapUser;
@@ -132,14 +129,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
 
     /**
      * 下载导入模板
+     *
      * @param response
      * @throws Exception
      */
     public void importTemplate(HttpServletResponse response) throws Exception {
         String[] exceCombo = deptService.getExceCombo();
-        Map<String,String[]> comboMap = new HashMap<String,String[]>();
-        comboMap.put("deptCombo",exceCombo);
-        ExcelUtil<ExcelUserVo> util = new ExcelUtil<ExcelUserVo>(ExcelUserVo.class,comboMap );
+        Map<String, String[]> comboMap = new HashMap<String, String[]>();
+        comboMap.put("deptCombo", exceCombo);
+        ExcelUtil<ExcelUserVo> util = new ExcelUtil<ExcelUserVo>(ExcelUserVo.class, comboMap);
         Result result = util.importTemplateExcel("用户信息");
         String fileName = (String) result.getData();
         if (!FileUtils.checkAllowDownload(fileName)) {
@@ -155,6 +153,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
 
     /**
      * 导入用户数据
+     *
      * @param file
      * @return
      * @throws Exception
@@ -172,11 +171,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
         for (ExcelUserVo vo : entities) {
             num++;
             try {
-                if (checkEntity(vo,msg,num)){
+                if (checkEntity(vo, msg, num)) {
                     LambdaQueryWrapper<UserEntity> lambda = new QueryWrapper<UserEntity>().lambda();
-                    lambda.eq(UserEntity::getMobile,vo.getTel());
+                    lambda.eq(UserEntity::getMobile, vo.getTel());
                     List<UserEntity> list = super.list(lambda);
-                    if (null == list || list.size() == 0){//账号未注册的情况，导入信息
+                    if (null == list || list.size() == 0) {//账号未注册的情况，导入信息
                         Long deptId = exceComboMap.get(vo.getDept());
                         UserEntity user = new UserEntity();
                         user.setUsername(vo.getName());
@@ -201,6 +200,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
 
     /**
      * 导入字段校验
+     *
      * @param o
      * @param failureMsg
      * @param failureNum
@@ -208,16 +208,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>{
      */
     private boolean checkEntity(ExcelUserVo o, StringBuilder failureMsg, int failureNum) {
         boolean status = true;
-        if (StringUtils.isEmpty(o.getName())){
-            failureMsg.append("第" + (failureNum+1) + "行、姓名为空");
+        if (StringUtils.isEmpty(o.getName())) {
+            failureMsg.append("第" + (failureNum + 1) + "行、姓名为空");
             status = false;
         }
-        if (Objects.isNull(o.getAge()) || !StringUtils.isNumeric(o.getAge()+"")){
-            failureMsg.append("第" + (failureNum+1) + "行、年龄有误");
+        if (Objects.isNull(o.getAge()) || !StringUtils.isNumeric(o.getAge() + "")) {
+            failureMsg.append("第" + (failureNum + 1) + "行、年龄有误");
             status = false;
         }
-        if (Objects.isNull(o.getTel()) || !PhoneUtil.isMobile(o.getTel())){
-            failureMsg.append("第" + (failureNum+1) + "行、手机号有误");
+        if (Objects.isNull(o.getTel()) || !PhoneUtil.isMobile(o.getTel())) {
+            failureMsg.append("第" + (failureNum + 1) + "行、手机号有误");
             status = false;
         }
         if (!status)

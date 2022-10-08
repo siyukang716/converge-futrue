@@ -69,73 +69,20 @@
         </script>
 
         <script type="text/html" id="optBar">
-            <a class="layui-btn layui-btn-xs" href="/fase?userid={{d.id}}">人脸识别</a>
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
             <a class="layui-btn layui-btn-xs" lay-event="perfectUserInfo">完善信息</a>
             <a class="layui-btn layui-btn-xs" lay-event="role">角色</a>
-            <!--<a class="layui-btn layui-btn-xs" href="/customer/addr/tolist?customerId={{d.id}}">收货地址</a>-->
-           <!-- <a class="layui-btn layui-btn-xs" href="/customer/login/log/tolist?customerId={{d.id}}">登录日志</a>-->
-
-            <!--{{#  if(d.isDel == '0'){ }}
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="recover">恢复</a>
-            {{#  } else { }}
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-            {{#  } }}-->
             <button class="layui-btn layui-btn-normal layui-btn-xs " lay-event="nolockUser">解锁</button>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
-
-
     </div>
 
+    <div th:replace="auth/form/userForm :: userImport"></div>
+    <div th:replace="auth/form/userForm :: user"></div>
+    <div th:replace="auth/form/userForm :: setUser"></div>
+    <div th:replace="common/dept_radio_Tree :: dept_radio_TreeControl" ></div>
+    <script th:src="@{/static/js/auth/userList.js}"></script>
 
-    <!--添加或编辑用户-->
-    <div id="setUser" class="layer_self_wrap" style="width:500px;display:none;">
-        <form id="userForm" class="layui-form layui-form-pane" method="post" action="" style="margin-top: 20px;">
-            <input id="pageNum" type="hidden" name="pageNum"/>
-            <input id="deptId" type="hidden" name="deptId"/>
-            <input id="roleIds" type="hidden" name="roleIds"/>
-            <input id="id" type="hidden" name="id"/>
-            <input id="version" type="hidden" name="version"/>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">用户名</label>
-                <div class="layui-input-inline">
-                    <input id="username" name="username" lay-verify="required" autocomplete="off" class="layui-input"
-                           type="text"/>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">账号</label>
-                <div class="layui-input-inline">
-                    <input id="mobile" name="mobile" lay-verify="required" autocomplete="off" class="layui-input"
-                           type="text" onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">邮箱</label>
-                <div class="layui-input-inline">
-                    <input id="email" name="email" lay-verify="required|email" autocomplete="off" class="layui-input"
-                           type="text"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">密码</label>
-                <div class="layui-input-inline">
-                    <input id="password" name="password" autocomplete="off" class="layui-input" type="password"
-                           placeholder="默认密码：654321"/>
-                </div>
-                <div class="layui-form-mid layui-word-aux">请填写6位以上的密码</div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block" style="margin-left: 10px;">
-                    <button class="layui-btn" lay-submit="" lay-filter="userSubmit">提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                </div>
-            </div>
-        </form>
-    </div>
 
     <!--添加角色-->
     <div id="setRole" class="layer_self_wrap" style="width:500px;display:none;">
@@ -155,13 +102,6 @@
             </div>
         </form>
     </div>
-<!--    <div th:replace="auth/userinfo :: userinfo"></div>-->
-    <div th:replace="auth/form/userForm :: userImport"></div>
-    <div th:replace="common/dept_radio_Tree :: dept_radio_TreeControl" ></div>
-
-    <script th:src="@{/static/js/auth/userList.js}"></script>
-
-
     <script type="text/javascript">
         var setting = {
             data: {

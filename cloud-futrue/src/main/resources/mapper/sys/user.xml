@@ -6,14 +6,7 @@
 <mapper namespace="com.cloud.sys.mapper.UserMapper">
 
     <select id="listUsers" resultType="com.cloud.sys.UserEntity">
-        SELECT 	user.id,
-        user.username,
-        user.mobile,
-        user.email,
-        user.is_del isDel,
-        user.is_job isJob,
-        user.insert_time insertTime,
-        user.version,
+        SELECT 	user.*,
         sud.dept_id  ,
         r.role_name roleName FROM
             `user`  LEFT JOIN user_role ur ON user.id = ur.user_id

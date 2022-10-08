@@ -8,6 +8,8 @@ fromId = control + 'Form',
     delUrl = baseUrl + 'del',
     getUrl = baseUrl + 'getById',
     getProdUrl = '/c/product/getById',
+    getUserUrl = '/user/getUser',
+    getCustomerUrl = '/c/user/getById',
     listUrl = baseUrl + 'getList',
     menuTitle = '美容院-收银管理';
 
@@ -98,6 +100,24 @@ $(function () {
             getData(getProdUrl,{'prodId':prodId},attrProdInfo);
         });
 
+        var userId = '';
+        form.on('select(userIdChange)', function (data) {
+            if (userId == data.value){
+                return ;
+            }
+            userId = data.value;
+            getData(getCustomerUrl,{"userId": userId},attrUserInfo);
+        });
+        
+        var staffId = '';
+        form.on('select(staffIdChange)', function (data) {
+            if (staffId == data.value){
+                return ;
+            }
+            staffId = data.value;
+            getData(getUserUrl,{"id": staffId},attrStaffInfo);
+        });
+
     });
 });
 
@@ -107,6 +127,31 @@ function attrProdInfo(data) {
     }
     $('#prodAmt').val(data.data.prodAmt);
 }
+function attrUserInfo(data) {
+    if (data.status != "1000") {
+        layer.msg(data.message);
+    }
+    $('#amt').val(data.data.amt);
+}
+
+function attrStaffInfo(data) {
+    if (data.status != "1000") {
+        layer.msg(data.message);
+    }
+    let userData = data.data;
+    let commissionRate = userData.commissionRate;
+    if (commissionRate == null || commissionRate == undefined){
+        layer.msg("请维护管理员["+userData.username+"]的提成率", {icon: 5});
+    }
+    let prodId = $('#prodId').val();
+    let userId = $('#userId').val();
+    let amt = $('#amt').val();
+    let staffId = $('#staffId').val();
+    let prodAmt = $('#prodAmt').val();
+    let royalty = prodAmt * (commissionRate * 0.01);
+    $('#royalty').val(royalty);
+}
+
 function reloadccashierList() {
     loadTable('ccashierList', {})
 }

@@ -61,15 +61,7 @@ public class CCashierController  {
     @ResponseBody
     @ApiOperation(value = "新增修改接口", notes = "新增修改接口")
     public Result aOrU(CCashierEntity entity) {
-        Result result = Result.getInstance();
-        boolean b = cCashierService.saveOrUpdate(entity);
-        result.setStatus(IStatusMessage.SystemStatus.SUCCESS.getCode());
-        result.setMessage("操作成功!!!");
-        if (!b) {
-        result.setStatus(IStatusMessage.SystemStatus.ERROR.getCode());
-        result.setMessage("操作异常，请您稍后再试");
-        }
-        return result;
+        return cCashierService.aOrU(entity);
     }
 
     /**
